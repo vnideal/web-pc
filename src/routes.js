@@ -50,6 +50,22 @@ const routes = [
     ]
   },
   {
+    path: '/products',
+    element: <DashboardLayout />,
+    children: [
+      { path: '/', element: <ProductListView /> },
+      { path: '*', element: <Navigate to="/404" /> }
+    ]
+  },
+  {
+    path: '/services',
+    element: <DashboardLayout />,
+    children: [
+      { path: '/', element: <ProductListView /> },
+      { path: '*', element: <Navigate to="/404" /> }
+    ]
+  },
+  {
     path: '/',
     element: <DashboardLayout />,
     children: [

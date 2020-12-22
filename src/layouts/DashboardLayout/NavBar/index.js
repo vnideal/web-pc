@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import {
   Avatar,
   Box,
-  Button,
   Divider,
   Drawer,
   Hidden,
@@ -13,14 +12,10 @@ import {
   makeStyles
 } from '@material-ui/core';
 import {
-  AlertCircle as AlertCircleIcon,
-  BarChart as BarChartIcon,
-  Lock as LockIcon,
   Settings as SettingsIcon,
   ShoppingBag as ShoppingBagIcon,
-  User as UserIcon,
-  UserPlus as UserPlusIcon,
-  Users as UsersIcon
+  Home as HomeIcon,
+  AlignJustify as ServicesIcon
 } from 'react-feather';
 import NavItem from './NavItem';
 
@@ -32,29 +27,24 @@ const user = {
 
 const items = [
   {
-    href: '/app/dashboard',
-    icon: BarChartIcon,
-    title: 'Dashboard'
+    href: '/',
+    icon: HomeIcon,
+    title: 'Trang chủ'
   },
   {
-    href: '/app/customers',
-    icon: UsersIcon,
-    title: 'Customers'
-  },
-  {
-    href: '/app/products',
+    href: '/products',
     icon: ShoppingBagIcon,
-    title: 'Products'
+    title: 'Sản phẩm'
   },
   {
-    href: '/app/account',
-    icon: UserIcon,
-    title: 'Account'
+    href: '/services',
+    icon: ServicesIcon,
+    title: 'Dịch vụ'
   },
   {
     href: '/app/settings',
     icon: SettingsIcon,
-    title: 'Settings'
+    title: 'Thiết lập'
   }
 ];
 
