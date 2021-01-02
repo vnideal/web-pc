@@ -9,15 +9,17 @@ import {
   Hidden,
   IconButton,
   Toolbar,
+  Tooltip,
   fade,
   makeStyles
 } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import NotificationsIcon from '@material-ui/icons/NotificationsOutlined';
-import InputIcon from '@material-ui/icons/Input';
+import LoginIcon from '@material-ui/icons/Input';
 import Logo from 'src/components/Logo';
 import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
+import LogoutIcon from '@material-ui/icons/PowerSettingsNew';
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -32,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
     '&:hover': {
       backgroundColor: fade(theme.palette.common.white, 0.25),
     },
-    marginLeft: 0,
+    marginLeft: 10,
     width: '100%',
     [theme.breakpoints.up('sm')]: {
       marginLeft: theme.spacing(1),
@@ -99,18 +101,22 @@ const TopBar = ({
           />
         </div>
         <Hidden mdDown>
-          <IconButton color="inherit">
-            <Badge
-              badgeContent={notifications.length}
-              color="primary"
-              variant="dot"
-            >
-              <NotificationsIcon />
-            </Badge>
-          </IconButton>
-          <IconButton color="inherit">
-            <InputIcon />
-          </IconButton>
+          <Tooltip title="Notifications">
+            <IconButton color="inherit">
+              <Badge
+                badgeContent={notifications.length}
+                color="primary"
+                variant="dot"
+              >
+                <NotificationsIcon />
+              </Badge>
+            </IconButton>
+          </Tooltip>
+          <Tooltip title="Đăng nhập">
+            <IconButton color="inherit" href="/login">
+              <LoginIcon />
+            </IconButton>
+          </Tooltip>
         </Hidden>
         <Hidden lgUp>
           <IconButton
