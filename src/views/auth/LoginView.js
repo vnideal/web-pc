@@ -15,6 +15,7 @@ import {
 import FacebookIcon from 'src/icons/Facebook';
 import GoogleIcon from 'src/icons/Google';
 import Page from 'src/components/Page';
+import signin from 'src/services/login/signin';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -28,6 +29,13 @@ const useStyles = makeStyles((theme) => ({
 const LoginView = () => {
   const classes = useStyles();
   const navigate = useNavigate();
+
+  const handleSubmitForm = (values, { setSubmitting }) => {
+    signin(values.email, values.password).then((response) => {
+      alert(JSON.stringify(response, null, 2));
+      setSubmitting(false);
+    });
+  };
 
   return (
     <Page
@@ -50,9 +58,7 @@ const LoginView = () => {
               email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
               password: Yup.string().max(255).required('Password is required')
             })}
-            onSubmit={() => {
-              navigate('/app/dashboard', { replace: true });
-            }}
+            onSubmit={(values, { setSubmitting }) => handleSubmitForm(values, { setSubmitting })}
           >
             {({
               errors,
