@@ -10,4 +10,9 @@ const signin = (email, password) => {
     }
   });
 };
-export default signin;
+
+const LoginService = {
+  signin
+};
+
+export default LoginService;
