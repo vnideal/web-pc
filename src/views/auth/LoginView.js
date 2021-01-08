@@ -31,23 +31,18 @@ const LoginView = () => {
   const navigate = useNavigate();
 
   const handleSubmitForm = (values, { setSubmitting }) => {
-    LoginService.signin(values.email, values.password).then((response) => {
-      console.log(response);
+    LoginService.signin(values.email, values.password).then((result) => {
+      console.log(result);
       setSubmitting(false);
+      if (result) {
+        navigate('/app/dashboard', { replace: true });
+      }
     });
   };
 
   return (
-    <Page
-      className={classes.root}
-      title="Login"
-    >
-      <Box
-        display="flex"
-        flexDirection="column"
-        height="100%"
-        justifyContent="center"
-      >
+    <Page className={classes.root} title="Login">
+      <Box display="flex" flexDirection="column" height="100%" justifyContent="center">
         <Container maxWidth="sm">
           <Formik
             initialValues={{
@@ -55,8 +50,13 @@ const LoginView = () => {
               password: 'Password123'
             }}
             validationSchema={Yup.object().shape({
-              email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
-              password: Yup.string().max(255).required('Password is required')
+              email: Yup.string()
+                .email('Must be a valid email')
+                .max(255)
+                .required('Email is required'),
+              password: Yup.string()
+                .max(255)
+                .required('Password is required')
             })}
             onSubmit={(values, { setSubmitting }) => handleSubmitForm(values, { setSubmitting })}
           >
@@ -71,29 +71,15 @@ const LoginView = () => {
             }) => (
               <form onSubmit={handleSubmit}>
                 <Box mb={3}>
-                  <Typography
-                    color="textPrimary"
-                    variant="h2"
-                  >
+                  <Typography color="textPrimary" variant="h2">
                     Sign in
                   </Typography>
-                  <Typography
-                    color="textSecondary"
-                    gutterBottom
-                    variant="body2"
-                  >
+                  <Typography color="textSecondary" gutterBottom variant="body2">
                     Sign in on the internal platform
                   </Typography>
                 </Box>
-                <Grid
-                  container
-                  spacing={3}
-                >
-                  <Grid
-                    item
-                    xs={12}
-                    md={6}
-                  >
+                <Grid container spacing={3}>
+                  <Grid item xs={12} md={6}>
                     <Button
                       color="primary"
                       fullWidth
@@ -105,11 +91,7 @@ const LoginView = () => {
                       Login with Facebook
                     </Button>
                   </Grid>
-                  <Grid
-                    item
-                    xs={12}
-                    md={6}
-                  >
+                  <Grid item xs={12} md={6}>
                     <Button
                       fullWidth
                       startIcon={<GoogleIcon />}
@@ -121,15 +103,8 @@ const LoginView = () => {
                     </Button>
                   </Grid>
                 </Grid>
-                <Box
-                  mt={3}
-                  mb={1}
-                >
-                  <Typography
-                    align="center"
-                    color="textSecondary"
-                    variant="body1"
-                  >
+                <Box mt={3} mb={1}>
+                  <Typography align="center" color="textSecondary" variant="body1">
                     or login with email address
                   </Typography>
                 </Box>
@@ -171,17 +146,10 @@ const LoginView = () => {
                     Sign in now
                   </Button>
                 </Box>
-                <Typography
-                  color="textSecondary"
-                  variant="body1"
-                >
+                <Typography color="textSecondary" variant="body1">
                   Don&apos;t have an account?
                   {' '}
-                  <Link
-                    component={RouterLink}
-                    to="/register"
-                    variant="h6"
-                  >
+                  <Link component={RouterLink} to="/register" variant="h6">
                     Sign up
                   </Link>
                 </Typography>

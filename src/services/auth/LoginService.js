@@ -1,4 +1,5 @@
 import axios from 'axios';
+import handleResponse from 'src/utils/handleResponse';
 
 const signin = (email, password) => {
   return axios({
@@ -8,7 +9,18 @@ const signin = (email, password) => {
       email,
       password
     }
-  });
+  })
+    .then(handleResponse)
+    .catch((error) => {
+      console.log(error);
+    })
+    .then((result) => {
+      if (!result) {
+        return false;
+      }
+      localStorage.setItem('currentUser', JSON.stringify(result));
+      return true;
+    });
 };
 
 const LoginService = {
