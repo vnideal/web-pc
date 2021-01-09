@@ -30,12 +30,14 @@ const LoginView = () => {
   const classes = useStyles();
   const navigate = useNavigate();
 
-  const handleSubmitForm = (values, { setSubmitting }) => {
-    LoginService.signin(values.email, values.password).then((result) => {
-      console.log(result);
+  const handleSubmitForm = (values, { setSubmitting, setErrors }) => {
+    LoginService.signin(values.email, values.password).then((response) => {
       setSubmitting(false);
-      if (result) {
-        navigate('/app/dashboard', { replace: true });
+      if (response.result) {
+        localStorage.setItem('currentUser', JSON.stringify(response.result));
+        navigate('/', { replace: true });
+      } else {
+        setErrors({ email: 'This email address is already used.' });
       }
     });
   };
@@ -46,8 +48,8 @@ const LoginView = () => {
         <Container maxWidth="sm">
           <Formik
             initialValues={{
-              email: 'demo@devias.io',
-              password: 'Password123'
+              email: 'demo@vnideal.com',
+              password: 'p@ssword'
             }}
             validationSchema={Yup.object().shape({
               email: Yup.string()
@@ -58,7 +60,7 @@ const LoginView = () => {
                 .max(255)
                 .required('Password is required')
             })}
-            onSubmit={(values, { setSubmitting }) => handleSubmitForm(values, { setSubmitting })}
+            onSubmit={(values, { setSubmitting, setErrors }) => handleSubmitForm(values, { setSubmitting, setErrors })}
           >
             {({
               errors,
