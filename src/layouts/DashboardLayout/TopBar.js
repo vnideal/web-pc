@@ -10,7 +10,7 @@ import Logo from 'src/components/Logo';
 import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
 import LogoutIcon from '@material-ui/icons/PowerSettingsNew';
-import LogoutService from 'src/services/auth/LogoutService';
+import AuthenticationService from 'src/services/auth/AuthenticationService';
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -71,7 +71,7 @@ const TopBar = ({ className, onMobileNavOpen, ...rest }) => {
 
   const handleLogout = () => {
     setSubmitting(true);
-    LogoutService.logout().then((result) => {
+    AuthenticationService.logout().then((result) => {
       setSubmitting(false);
       console.log(result);
       if (result) {
