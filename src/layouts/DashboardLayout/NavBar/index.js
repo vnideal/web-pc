@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Link as RouterLink, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { Avatar, Box, Divider, Drawer, Hidden, List, Typography, makeStyles } from '@material-ui/core';
+// eslint-disable-next-line object-curly-newline
+import { Box, Divider, Drawer, Hidden, List, Typography, makeStyles } from '@material-ui/core';
 import {
   Settings as SettingsIcon,
   ShoppingBag as ShoppingBagIcon,
@@ -9,6 +10,7 @@ import {
   AlignJustify as ServicesIcon
 } from 'react-feather';
 import ProfileService from 'src/services/profile/ProfileService';
+import UserAvatar from 'src/components/UserAvatar';
 import NavItem from './NavItem';
 
 const items = [
@@ -75,7 +77,7 @@ const NavBar = ({ onMobileClose, openMobile }) => {
   const content = (
     <Box height="100%" display="flex" flexDirection="column">
       <Box alignItems="center" display="flex" flexDirection="column" p={2}>
-        <Avatar className={classes.avatar} component={RouterLink} src={user.avatar} to="/app/account" />
+        <UserAvatar className={classes.avatar} to="/app/account" user={user} />
         <Typography className={classes.name} color="textPrimary" variant="h5">
           {user.name}
         </Typography>
