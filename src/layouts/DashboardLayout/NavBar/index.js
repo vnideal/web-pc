@@ -1,29 +1,17 @@
-import React, { useEffect } from 'react';
-import { Link as RouterLink, useLocation } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import {
-  Avatar,
-  Box,
-  Divider,
-  Drawer,
-  Hidden,
-  List,
-  Typography,
-  makeStyles
-} from '@material-ui/core';
+// eslint-disable-next-line object-curly-newline
+import { Box, Divider, Drawer, Hidden, List, Typography, makeStyles } from '@material-ui/core';
 import {
   Settings as SettingsIcon,
   ShoppingBag as ShoppingBagIcon,
   Home as HomeIcon,
   AlignJustify as ServicesIcon
 } from 'react-feather';
+import ProfileService from 'src/services/profile/ProfileService';
+import UserAvatar from 'src/components/UserAvatar';
 import NavItem from './NavItem';
-
-const user = {
-  avatar: '/static/images/avatars/non-login.png',
-  name: 'Guest User',
-  jobTitle: '',
-};
 
 const items = [
   {
@@ -67,56 +55,38 @@ const useStyles = makeStyles(() => ({
 const NavBar = ({ onMobileClose, openMobile }) => {
   const classes = useStyles();
   const location = useLocation();
+  const [user, setUser] = useState([]);
 
   useEffect(() => {
+    let mounted = true;
     if (openMobile && onMobileClose) {
       onMobileClose();
     }
+    ProfileService.info().then((userInfo) => {
+      if (mounted) {
+        setUser(userInfo);
+      }
+    });
+
+    // eslint-disable-next-line no-return-assign
+    return () => (mounted = false);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.pathname]);
 
   const content = (
-    <Box
-      height="100%"
-      display="flex"
-      flexDirection="column"
-    >
-      <Box
-        alignItems="center"
-        display="flex"
-        flexDirection="column"
-        p={2}
-      >
-        <Avatar
-          className={classes.avatar}
-          component={RouterLink}
-          src={user.avatar}
-          to="/app/account"
-        />
-        <Typography
-          className={classes.name}
-          color="textPrimary"
-          variant="h5"
-        >
+    <Box height="100%" display="flex" flexDirection="column">
+      <Box alignItems="center" display="flex" flexDirection="column" p={2}>
+        <UserAvatar className={classes.avatar} to="/app/account" user={user} />
+        <Typography className={classes.name} color="textPrimary" variant="h5">
           {user.name}
-        </Typography>
-        <Typography
-          color="textSecondary"
-          variant="body2"
-        >
-          {user.jobTitle}
         </Typography>
       </Box>
       <Divider />
       <Box p={2}>
         <List>
           {items.map((item) => (
-            <NavItem
-              href={item.href}
-              key={item.title}
-              title={item.title}
-              icon={item.icon}
-            />
+            <NavItem href={item.href} key={item.title} title={item.title} icon={item.icon} />
           ))}
         </List>
       </Box>
@@ -138,12 +108,7 @@ const NavBar = ({ onMobileClose, openMobile }) => {
         </Drawer>
       </Hidden>
       <Hidden mdDown>
-        <Drawer
-          anchor="left"
-          classes={{ paper: classes.desktopDrawer }}
-          open
-          variant="persistent"
-        >
+        <Drawer anchor="left" classes={{ paper: classes.desktopDrawer }} open variant="persistent">
           {content}
         </Drawer>
       </Hidden>
