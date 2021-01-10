@@ -11,11 +11,11 @@ const countries = [
   },
   {
     value: 'us',
-    label: 'US'
+    label: 'United States'
   },
   {
     value: 'jp',
-    label: 'JP'
+    label: 'Japan'
   }
 ];
 
