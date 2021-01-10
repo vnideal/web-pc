@@ -2,17 +2,8 @@ import React, { useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
-import {
-  AppBar,
-  Badge,
-  Box,
-  Hidden,
-  IconButton,
-  Toolbar,
-  Tooltip,
-  fade,
-  makeStyles
-} from '@material-ui/core';
+// eslint-disable-next-line object-curly-newline
+import { AppBar, Badge, Box, Hidden, IconButton, Toolbar, Tooltip, fade, makeStyles } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import NotificationsIcon from '@material-ui/icons/NotificationsOutlined';
 import LoginIcon from '@material-ui/icons/Input';
@@ -27,19 +18,22 @@ const useStyles = makeStyles((theme) => ({
     width: 60,
     height: 60
   },
+  logo: {
+    borderRadius: '50%'
+  },
   search: {
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
     backgroundColor: fade(theme.palette.common.white, 0.15),
     '&:hover': {
-      backgroundColor: fade(theme.palette.common.white, 0.25),
+      backgroundColor: fade(theme.palette.common.white, 0.25)
     },
     marginLeft: 10,
     width: '100%',
     [theme.breakpoints.up('sm')]: {
       marginLeft: theme.spacing(1),
-      width: 'auto',
-    },
+      width: 'auto'
+    }
   },
   searchIcon: {
     padding: theme.spacing(0, 2),
@@ -48,10 +42,10 @@ const useStyles = makeStyles((theme) => ({
     pointerEvents: 'none',
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   inputRoot: {
-    color: 'inherit',
+    color: 'inherit'
   },
   inputInput: {
     padding: theme.spacing(1, 1, 1, 0),
@@ -62,29 +56,21 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up('sm')]: {
       width: '12ch',
       '&:focus': {
-        width: '20ch',
-      },
-    },
+        width: '20ch'
+      }
+    }
   }
 }));
 
-const TopBar = ({
-  className,
-  onMobileNavOpen,
-  ...rest
-}) => {
+const TopBar = ({ className, onMobileNavOpen, ...rest }) => {
   const classes = useStyles();
   const [notifications] = useState([]);
 
   return (
-    <AppBar
-      className={clsx(classes.root, className)}
-      elevation={0}
-      {...rest}
-    >
+    <AppBar className={clsx(classes.root, className)} elevation={0} {...rest}>
       <Toolbar>
         <RouterLink to="/">
-          <Logo />
+          <Logo width={42} className={classes.logo} />
         </RouterLink>
         <Box flexGrow={1} />
         <div className={classes.search}>
@@ -95,7 +81,7 @@ const TopBar = ({
             placeholder="Search…"
             classes={{
               root: classes.inputRoot,
-              input: classes.inputInput,
+              input: classes.inputInput
             }}
             inputProps={{ 'aria-label': 'search' }}
           />
@@ -103,11 +89,7 @@ const TopBar = ({
         <Hidden mdDown>
           <Tooltip title="Notifications">
             <IconButton color="inherit">
-              <Badge
-                badgeContent={notifications.length}
-                color="primary"
-                variant="dot"
-              >
+              <Badge badgeContent={notifications.length} color="primary" variant="dot">
                 <NotificationsIcon />
               </Badge>
             </IconButton>
@@ -119,10 +101,7 @@ const TopBar = ({
           </Tooltip>
         </Hidden>
         <Hidden lgUp>
-          <IconButton
-            color="inherit"
-            onClick={onMobileNavOpen}
-          >
+          <IconButton color="inherit" onClick={onMobileNavOpen}>
             <MenuIcon />
           </IconButton>
         </Hidden>
