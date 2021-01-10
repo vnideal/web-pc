@@ -15,7 +15,7 @@ import {
 import FacebookIcon from 'src/icons/Facebook';
 import GoogleIcon from 'src/icons/Google';
 import Page from 'src/components/Page';
-import LoginService from 'src/services/auth/LoginService';
+import AuthenticationService from 'src/services/auth/AuthenticationService';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -31,7 +31,7 @@ const LoginView = () => {
   const navigate = useNavigate();
 
   const handleSubmitForm = (values, { setSubmitting, setErrors }) => {
-    LoginService.signin(values.email, values.password).then((response) => {
+    AuthenticationService.signin(values.email, values.password).then((response) => {
       setSubmitting(false);
       if (response.result) {
         localStorage.setItem('currentUser', JSON.stringify(response.result));
