@@ -67,7 +67,7 @@ const routes = [
   },
   {
     path: '/',
-    element: <DashboardLayout />,
+    element: <MainLayout />,
     children: [
       { path: '/', element: <HomeView /> },
       { path: '*', element: <Navigate to="/404" /> }
