@@ -81,7 +81,14 @@ const RegisterView = () => {
                 .required('password is required'),
               confirmPassword: Yup.string()
                 .max(255)
-                .required('Confirm is required'),
+                .required('Confirm password is required')
+                .when('password', {
+                  is: (val) => (!!(val && val.length > 0)),
+                  then: Yup.string().oneOf(
+                    [Yup.ref('password')],
+                    'Both password need to be the same'
+                  )
+                }),
               policy: Yup.boolean().oneOf([true], 'This field must be checked')
             })}
             onSubmit={(values, { setSubmitting, setErrors }) => handleSubmitForm(values, { setSubmitting, setErrors })}
@@ -106,7 +113,6 @@ const RegisterView = () => {
                 </Box>
                 <TextField
                   error={Boolean(touched.firstName && errors.firstName)}
-                  fullWidth
                   helperText={touched.firstName && errors.firstName}
                   label="First name"
                   margin="normal"
@@ -118,7 +124,6 @@ const RegisterView = () => {
                 />
                 <TextField
                   error={Boolean(touched.lastName && errors.lastName)}
-                  fullWidth
                   helperText={touched.lastName && errors.lastName}
                   label="Last name"
                   margin="normal"

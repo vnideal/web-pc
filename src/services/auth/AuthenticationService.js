@@ -46,7 +46,7 @@ const logout = async () => {
   return result;
 };
 
-const signup = async (firstName, lastName, displayName, email, password, passwordConfirm) => {
+const signup = async (firstName, lastName, displayName, email, password, confirmPassword) => {
   let result;
   try {
     const handleResponse = await axios({
@@ -58,7 +58,7 @@ const signup = async (firstName, lastName, displayName, email, password, passwor
         name: displayName,
         email,
         password,
-        password_confirmation: passwordConfirm,
+        password_confirmation: confirmPassword,
         remember_me: 1
       }
     });
