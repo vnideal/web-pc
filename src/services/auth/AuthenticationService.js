@@ -69,10 +69,17 @@ const signup = async (firstName, lastName, displayName, email, password, confirm
   return result;
 };
 
+const isLogin = () => {
+  const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
+  return !!currentUser;
+};
+
 const AuthenticationService = {
   signin,
   signup,
-  logout
+  logout,
+  isLogin
 };
 
 export default AuthenticationService;

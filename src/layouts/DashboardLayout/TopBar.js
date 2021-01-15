@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link as RouterLink, useNavigate, useLocation } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 // eslint-disable-next-line object-curly-newline
@@ -9,8 +9,7 @@ import NotificationsIcon from '@material-ui/icons/NotificationsOutlined';
 import Logo from 'src/components/Logo';
 import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
-import LogoutIcon from '@material-ui/icons/PowerSettingsNew';
-import AuthenticationService from 'src/services/auth/AuthenticationService';
+import UserMenuList from 'src/components/UserMenuList';
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -65,24 +64,6 @@ const useStyles = makeStyles((theme) => ({
 const TopBar = ({ className, onMobileNavOpen, ...rest }) => {
   const classes = useStyles();
   const [notifications] = useState([]);
-  const [isSubmitting, setSubmitting] = useState(false);
-  const navigate = useNavigate();
-  const location = useLocation();
-
-  const handleLogout = () => {
-    setSubmitting(true);
-    AuthenticationService.logout().then((result) => {
-      setSubmitting(false);
-      console.log(result);
-      if (result) {
-        if (location.pathname === '/') {
-          window.location.reload(true);
-        } else {
-          navigate('/', { replace: true });
-        }
-      }
-    });
-  };
 
   return (
     <AppBar className={clsx(classes.root, className)} elevation={0} {...rest}>
@@ -112,12 +93,8 @@ const TopBar = ({ className, onMobileNavOpen, ...rest }) => {
               </Badge>
             </IconButton>
           </Tooltip>
-          <Tooltip title="Đăng xuất">
-            <IconButton color="inherit" onClick={handleLogout} disabled={isSubmitting}>
-              <LogoutIcon />
-            </IconButton>
-          </Tooltip>
         </Hidden>
+        <UserMenuList display />
         <Hidden lgUp>
           <IconButton color="inherit" onClick={onMobileNavOpen}>
             <MenuIcon />

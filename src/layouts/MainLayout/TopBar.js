@@ -18,8 +18,10 @@ import {
 } from '@material-ui/core';
 import NotificationsIcon from '@material-ui/icons/NotificationsOutlined';
 import Logo from 'src/components/Logo';
+import UserMenuList from 'src/components/UserMenuList';
 import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
+import AuthenticationService from 'src/services/auth/AuthenticationService';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -88,6 +90,8 @@ const useStyles = makeStyles((theme) => ({
 const TopBar = ({ className, ...rest }) => {
   const classes = useStyles();
   const [notifications] = useState([]);
+  const isLogin = AuthenticationService.isLogin();
+  console.log('login:', isLogin);
 
   return (
     <AppBar className={clsx(classes.root, className)} elevation={0} {...rest}>
@@ -115,14 +119,14 @@ const TopBar = ({ className, ...rest }) => {
           />
         </div>
         <Hidden mdDown>
-          <div className={classes.buttons}>
-            <Tooltip title="Notifications">
-              <IconButton color="inherit">
-                <Badge badgeContent={notifications.length} color="primary" variant="dot">
-                  <NotificationsIcon />
-                </Badge>
-              </IconButton>
-            </Tooltip>
+          <Tooltip title="Notifications">
+            <IconButton color="inherit">
+              <Badge badgeContent={notifications.length} color="primary" variant="dot">
+                <NotificationsIcon />
+              </Badge>
+            </IconButton>
+          </Tooltip>
+          <div style={{ display: isLogin ? 'none' : 'block' }} className={classes.buttons}>
             <Button variant="outlined" color="primary" href="/login">
               Login
             </Button>
@@ -131,6 +135,7 @@ const TopBar = ({ className, ...rest }) => {
             </Button>
           </div>
         </Hidden>
+        <UserMenuList display={isLogin} />
       </Toolbar>
     </AppBar>
   );
