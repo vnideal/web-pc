@@ -40,8 +40,7 @@ const ProfileDetails = ({ className, user, ...rest }) => {
     ).then((response) => {
       setSubmitting(false);
       if (response.result) {
-        // localStorage.setItem('currentUser', JSON.stringify(response.result));
-        console.log(response.result);
+        window.location.reload();
       } else {
         setErrors(response.errors);
       }
