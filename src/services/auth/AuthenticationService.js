@@ -2,6 +2,16 @@ import axios from 'axios';
 import handleResponseData from 'src/utils/handleResponseData';
 import handleResponseError from 'src/utils/handleResponseError';
 
+const useAccessToken = () => {
+  const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+  // const navigate = useNavigate();
+
+  if (!currentUser) {
+    // navigate('/login', { replace: true });
+  }
+  axios.defaults.headers.common = { Authorization: `Bearer ${currentUser.access_token}` };
+};
+
 const signin = async (email, password) => {
   let result;
   try {
@@ -79,7 +89,8 @@ const AuthenticationService = {
   signin,
   signup,
   logout,
-  isLogin
+  isLogin,
+  useAccessToken
 };
 
 export default AuthenticationService;

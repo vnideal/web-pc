@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Grid, makeStyles } from '@material-ui/core';
 import Page from 'src/components/Page';
+import Loading from 'src/components/Loading';
 import ProfileService from 'src/services/profile/ProfileService';
 import Profile from './Profile';
 import ProfileDetails from './ProfileDetails';
@@ -34,7 +35,7 @@ const Account = () => {
   }, []);
 
   if (!isLoaded) {
-    return <div>Loading...</div>;
+    return <Loading />;
   }
 
   return (
