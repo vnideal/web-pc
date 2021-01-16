@@ -44,7 +44,7 @@ const RegisterView = () => {
         localStorage.setItem('currentUser', JSON.stringify(response.result));
         navigate('/app/dashboard', { replace: true });
       } else {
-        setErrors({ email: 'This email address is already used.' });
+        setErrors(response.errors);
       }
     });
   };
