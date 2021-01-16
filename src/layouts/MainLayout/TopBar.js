@@ -91,7 +91,6 @@ const TopBar = ({ className, ...rest }) => {
   const classes = useStyles();
   const [notifications] = useState([]);
   const isLogin = AuthenticationService.isLogin();
-  console.log('login:', isLogin);
 
   return (
     <AppBar className={clsx(classes.root, className)} elevation={0} {...rest}>
