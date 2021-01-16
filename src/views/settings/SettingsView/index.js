@@ -26,7 +26,6 @@ const SettingsView = () => {
       title="Settings"
     >
       <Container maxWidth="lg">
-        <Notifications />
         <Box mt={3}>
           <Password />
         </Box>
