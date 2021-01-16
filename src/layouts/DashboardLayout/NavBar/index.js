@@ -15,9 +15,9 @@ import NavItem from './NavItem';
 
 const items = [
   {
-    href: '/',
+    href: '/app/dashboard',
     icon: HomeIcon,
-    title: 'Trang chủ'
+    title: 'Dashboard'
   },
   {
     href: '/products',

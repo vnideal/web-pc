@@ -46,9 +46,40 @@ const logout = async () => {
   return result;
 };
 
+const signup = async (firstName, lastName, displayName, email, password, confirmPassword) => {
+  let result;
+  try {
+    const handleResponse = await axios({
+      method: 'post',
+      url: '/api/v1/auth/signup',
+      data: {
+        first_name: firstName,
+        last_name: lastName,
+        name: displayName,
+        email,
+        password,
+        password_confirmation: confirmPassword,
+        remember_me: 1
+      }
+    });
+    result = await handleResponseData(handleResponse);
+  } catch (error) {
+    result = handleResponseError(error);
+  }
+  return result;
+};
+
+const isLogin = () => {
+  const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
+  return !!currentUser;
+};
+
 const AuthenticationService = {
   signin,
-  logout
+  signup,
+  logout,
+  isLogin
 };
 
 export default AuthenticationService;
