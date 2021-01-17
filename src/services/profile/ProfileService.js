@@ -1,18 +1,15 @@
-import axios from 'axios';
+import HttpClient from 'src/utils/HttpClient';
 import handleResponseData from 'src/utils/handleResponseData';
 import handleResponseError from 'src/utils/handleResponseError';
-import AuthenticationService from 'src/services/auth/AuthenticationService';
+
+const httpClientOptions = { useAccessToken: true };
 
 const info = async () => {
   let responseData;
 
-  AuthenticationService.useAccessToken();
-
   try {
-    const handleResponse = await axios({
-      method: 'get',
-      url: '/api/v1/profile'
-    });
+    const httpClient = HttpClient(httpClientOptions);
+    const handleResponse = await httpClient.get('/api/v1/profile');
     responseData = await handleResponseData(handleResponse);
   } catch (error) {
     responseData = handleResponseError(error);
@@ -24,21 +21,17 @@ const info = async () => {
 
 const update = async (firstName, lastName, displayName, phone, country, state) => {
   let result;
-  AuthenticationService.useAccessToken();
 
   try {
-    const handleResponse = await axios({
-      method: 'post',
-      url: '/api/v1/profile/update',
-      data: {
-        first_name: firstName,
-        last_name: lastName,
-        name: displayName,
-        phone,
-        country,
-        state,
-        _method: 'put'
-      }
+    const httpClient = HttpClient(httpClientOptions);
+    const handleResponse = await httpClient.post('/api/v1/profile/update', {
+      first_name: firstName,
+      last_name: lastName,
+      name: displayName,
+      phone,
+      country,
+      state,
+      _method: 'put'
     });
     result = await handleResponseData(handleResponse);
   } catch (error) {
