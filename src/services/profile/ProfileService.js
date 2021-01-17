@@ -40,9 +40,35 @@ const update = async (firstName, lastName, displayName, phone, country, state) =
   return result;
 };
 
+const uploadAvatar = async (file, onUploadProgress) => {
+  let responseData;
+
+  try {
+    const httpClient = HttpClient(httpClientOptions);
+    const formData = new FormData();
+
+    formData.append('avatar', file);
+    formData.append('_method', 'PUT');
+    const handleResponse = await httpClient.post('/api/v1/profile/upload', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      },
+      onUploadProgress
+    });
+    responseData = await handleResponseData(handleResponse);
+  } catch (error) {
+    responseData = handleResponseError(error);
+  }
+
+  const { result } = responseData;
+
+  return result;
+};
+
 const ProfileService = {
   info,
-  update
+  update,
+  uploadAvatar
 };
 
 export default ProfileService;
