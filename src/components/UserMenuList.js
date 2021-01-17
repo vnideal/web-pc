@@ -9,6 +9,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
 import IconButton from '@material-ui/core/IconButton';
 import PersonIcon from '@material-ui/icons/Person';
+import Hidden from '@material-ui/core/Hidden';
 import { makeStyles } from '@material-ui/core/styles';
 import AuthenticationService from 'src/services/auth/AuthenticationService';
 
@@ -58,6 +59,16 @@ const UserMenuList = ({ display }) => {
     handleClose(event);
   };
 
+  const navigateLogin = (event) => {
+    navigate('/login', { replace: true });
+    handleClose(event);
+  };
+
+  const navigateSignup = (event) => {
+    navigate('/register', { replace: true });
+    handleClose(event);
+  };
+
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
   };
@@ -80,7 +91,38 @@ const UserMenuList = ({ display }) => {
   }, [open]);
 
   if (!display) {
-    return null;
+    return (
+      <Hidden smUp>
+        <div className={classes.root}>
+          <IconButton
+            color="inherit"
+            onClick={handleToggle}
+            ref={anchorRef}
+            aria-controls={open ? 'menu-list-grow' : undefined}
+            aria-haspopup="true"
+          >
+            <PersonIcon />
+          </IconButton>
+          <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
+            {({ TransitionProps, placement }) => (
+              <Grow
+                {...TransitionProps}
+                style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
+              >
+                <Paper>
+                  <ClickAwayListener onClickAway={handleClose}>
+                    <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
+                      <MenuItem onClick={navigateLogin}>Login</MenuItem>
+                      <MenuItem onClick={navigateSignup}>Signup</MenuItem>
+                    </MenuList>
+                  </ClickAwayListener>
+                </Paper>
+              </Grow>
+            )}
+          </Popper>
+        </div>
+      </Hidden>
+    );
   }
 
   return (
