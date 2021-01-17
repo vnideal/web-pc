@@ -1,30 +1,20 @@
-import axios from 'axios';
+import HttpClient from 'src/utils/HttpClient';
 import handleResponseData from 'src/utils/handleResponseData';
 import handleResponseError from 'src/utils/handleResponseError';
 
-const useAccessToken = () => {
-  const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-  // const navigate = useNavigate();
-
-  if (!currentUser) {
-    // navigate('/login', { replace: true });
-  }
-  axios.defaults.headers.common = { Authorization: `Bearer ${currentUser.access_token}` };
-};
+const httpClientOptions = { useAccessToken: true };
 
 const signin = async (email, password) => {
   let result;
   try {
-    const handleResponse = await axios({
-      method: 'post',
-      url: '/api/v1/auth/login',
-      data: {
-        email,
-        password
-      }
+    const httpClient = HttpClient({ useAccessToken: false });
+    const handleResponse = await httpClient.post('/api/v1/auth/login', {
+      email,
+      password
     });
     result = await handleResponseData(handleResponse);
   } catch (error) {
+    console.log(error);
     result = handleResponseError(error);
   }
   return result;
@@ -37,13 +27,10 @@ const logout = async () => {
   if (!currentUser) {
     return false;
   }
-  axios.defaults.headers.common = { Authorization: `Bearer ${currentUser.access_token}` };
 
   try {
-    const handleResponse = await axios({
-      method: 'get',
-      url: '/api/v1/logout'
-    });
+    const httpClient = HttpClient(httpClientOptions);
+    const handleResponse = await httpClient.get('/api/v1/logout');
     responseData = await handleResponseData(handleResponse);
   } catch (error) {
     responseData = handleResponseError(error);
@@ -59,18 +46,16 @@ const logout = async () => {
 const signup = async (firstName, lastName, displayName, email, password, confirmPassword) => {
   let result;
   try {
-    const handleResponse = await axios({
-      method: 'post',
-      url: '/api/v1/auth/signup',
-      data: {
-        first_name: firstName,
-        last_name: lastName,
-        name: displayName,
-        email,
-        password,
-        password_confirmation: confirmPassword,
-        remember_me: 1
-      }
+    httpClientOptions.useAccessToken = false;
+    const httpClient = HttpClient(httpClientOptions);
+    const handleResponse = await httpClient.post('/api/v1/auth/signup', {
+      first_name: firstName,
+      last_name: lastName,
+      name: displayName,
+      email,
+      password,
+      password_confirmation: confirmPassword,
+      remember_me: 1
     });
     result = await handleResponseData(handleResponse);
   } catch (error) {
@@ -89,8 +74,7 @@ const AuthenticationService = {
   signin,
   signup,
   logout,
-  isLogin,
-  useAccessToken
+  isLogin
 };
 
 export default AuthenticationService;

@@ -27,7 +27,7 @@ const routes = (isLoggedIn) => [
   },
   {
     path: '/login',
-    element: <MainLayout />,
+    element: isLoggedIn ? <Navigate to="/app/dashboard" /> : <MainLayout />,
     children: [
       { path: '/', element: <LoginView /> },
       { path: '*', element: <Navigate to="/404" /> }
@@ -43,7 +43,7 @@ const routes = (isLoggedIn) => [
   },
   {
     path: '/register',
-    element: <MainLayout />,
+    element: isLoggedIn ? <Navigate to="/app/dashboard" /> : <MainLayout />,
     children: [
       { path: '/', element: <RegisterView /> },
       { path: '*', element: <Navigate to="/404" /> }
