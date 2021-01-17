@@ -54,7 +54,9 @@ const ProfileDetails = ({ className, user, ...rest }) => {
         firstName: user.first_name,
         lastName: user.last_name,
         displayName: user.name,
-        state: 'Ho Chi Minh'
+        phone: user.phone,
+        country: user.country,
+        state: user.state
       }}
       validationSchema={Yup.object().shape({
         firstName: Yup.string()
@@ -66,7 +68,7 @@ const ProfileDetails = ({ className, user, ...rest }) => {
         displayName: Yup.string()
           .max(255)
           .required('Display name is required'),
-        phone: Yup.string().max(255),
+        phone: Yup.string().nullable().max(14),
         state: Yup.string()
           .max(255)
           .required('State name is required')
