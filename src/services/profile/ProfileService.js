@@ -31,7 +31,7 @@ const update = async (firstName, lastName, displayName, phone, country, state) =
       phone,
       country,
       state,
-      _method: 'put'
+      _method: 'PUT'
     });
     result = await handleResponseData(handleResponse);
   } catch (error) {
@@ -65,10 +65,29 @@ const uploadAvatar = async (file, onUploadProgress) => {
   return result;
 };
 
+const updatePassword = async (currentPassword, newPassword, confirmNewPassword) => {
+  let responseData;
+
+  try {
+    const httpClient = HttpClient(httpClientOptions);
+    const handleResponse = await httpClient.post('/api/v1/profile/password', {
+      password: currentPassword,
+      new_password: newPassword,
+      new_password_confirmation: confirmNewPassword,
+      _method: 'PUT'
+    });
+    responseData = await handleResponseData(handleResponse);
+  } catch (error) {
+    responseData = handleResponseError(error);
+  }
+  return responseData;
+};
+
 const ProfileService = {
   info,
   update,
-  uploadAvatar
+  uploadAvatar,
+  updatePassword
 };
 
 export default ProfileService;
