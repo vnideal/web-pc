@@ -16,18 +16,19 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-const Profile = ({ className, user, onChange, ...rest }) => {
+const Profile = ({ className, user, ...rest }) => {
   const classes = useStyles();
   const [isSubmitting, setSubmitting] = React.useState(false);
+  const [userInfo, setUserInfo] = React.useState(user);
 
   const handleSelectFile = (event) => {
     setSubmitting(true);
     const currentFile = event.target.files[0];
     ProfileService.uploadAvatar(currentFile, (e) => {
       console.log(Math.round((100 * e.loaded) / e.total));
-    }).then((userInfo) => {
+    }).then((info) => {
       setSubmitting(false);
-      onChange(userInfo);
+      setUserInfo(info);
     });
   };
 
@@ -35,7 +36,7 @@ const Profile = ({ className, user, onChange, ...rest }) => {
     <Card className={clsx(classes.root, className)} {...rest}>
       <CardContent>
         <Box alignItems="center" display="flex" flexDirection="column">
-          <UserAvatar className={classes.avatar} user={user} to="" />
+          <UserAvatar className={classes.avatar} user={userInfo} to="" />
           <Typography color="textPrimary" gutterBottom variant="h3">
             {user.name}
           </Typography>
@@ -57,8 +58,7 @@ const Profile = ({ className, user, onChange, ...rest }) => {
 
 Profile.propTypes = {
   className: PropTypes.string,
-  user: PropTypes.object.isRequired,
-  onChange: PropTypes.func
+  user: PropTypes.object.isRequired
 };
 
 export default Profile;
