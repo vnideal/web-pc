@@ -20,14 +20,9 @@ const items = [
     title: 'Dashboard'
   },
   {
-    href: '/products',
+    href: '/app/products',
     icon: ShoppingBagIcon,
     title: 'Sản phẩm'
-  },
-  {
-    href: '/services',
-    icon: ServicesIcon,
-    title: 'Dịch vụ'
   },
   {
     href: '/app/settings',

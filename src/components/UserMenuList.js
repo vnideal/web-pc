@@ -146,7 +146,7 @@ const UserMenuList = ({ display }) => {
               <ClickAwayListener onClickAway={handleClose}>
                 <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
                   <MenuItem onClick={navigateProfile}>Profile</MenuItem>
-                  <MenuItem onClick={navigateDashboard}>My account</MenuItem>
+                  <MenuItem onClick={navigateDashboard}>Dashboard</MenuItem>
                   <MenuItem onClick={handleLogout} disabled={isSubmitting}>
                     Logout
                   </MenuItem>
