@@ -22,12 +22,12 @@ const items = [
   {
     href: '/app/products',
     icon: ShoppingBagIcon,
-    title: 'Sản phẩm'
+    title: 'Products'
   },
   {
     href: '/app/settings',
     icon: SettingsIcon,
-    title: 'Thiết lập'
+    title: 'Settings'
   }
 ];
 
