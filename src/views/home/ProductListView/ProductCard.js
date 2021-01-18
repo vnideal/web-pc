@@ -75,18 +75,18 @@ const ProductCard = ({ className, product, ...rest }) => {
             <MoreVertIcon />
           </IconButton>
         )}
-        title={product.title}
-        subheader={getFromNow(product.createdAt)}
+        title={product.user.name}
+        subheader={getFromNow(product.created_at)}
       />
       <CardMedia
         className={classes.media}
-        image={product.media}
+        image={product.image}
         title="Paella dish"
       />
 
       <CardContent>
         <Typography align="center" color="textPrimary" variant="body1">
-          {product.description}
+          {product.name}
         </Typography>
       </CardContent>
       <Box flexGrow={1} />
