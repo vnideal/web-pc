@@ -14,6 +14,7 @@ const UserAvatar = ({ user, className, to }) => {
   const classes = useStyles();
   className = className || classes.avatar;
   if (user.avatar) {
+    console.log(user.avatar);
     return <Avatar className={className} component={RouterLink} src={user.avatar} to={to} />;
   }
   return (

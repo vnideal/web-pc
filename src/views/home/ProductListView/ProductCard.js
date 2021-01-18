@@ -14,12 +14,12 @@ import {
   CardActions,
   makeStyles
 } from '@material-ui/core';
-import { red } from '@material-ui/core/colors';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import CommentIcon from '@material-ui/icons/Comment';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import getFromNow from 'src/utils/getFromNow';
+import UserAvatar from 'src/components/UserAvatar';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -52,8 +52,7 @@ const useStyles = makeStyles((theme) => ({
   expandOpen: {
     transform: 'rotate(180deg)'
   },
-  avatar: {
-  },
+  avatar: {},
   cardaction: {
     padding: '4px 8px'
   }
@@ -65,11 +64,7 @@ const ProductCard = ({ className, product, ...rest }) => {
   return (
     <Card className={clsx(classes.root, className)} {...rest}>
       <CardHeader
-        avatar={(
-          <Avatar aria-label="recipe" className={classes.avatar} style={{ backgroundColor: product.user.avatar.color }}>
-            {product.user.avatar.letter}
-          </Avatar>
-        )}
+        avatar={<UserAvatar className={classes.avatar} to="" user={product.user} />}
         action={(
           <IconButton aria-label="settings">
             <MoreVertIcon />
@@ -78,11 +73,7 @@ const ProductCard = ({ className, product, ...rest }) => {
         title={product.user.name}
         subheader={getFromNow(product.created_at)}
       />
-      <CardMedia
-        className={classes.media}
-        image={product.image}
-        title="Paella dish"
-      />
+      <CardMedia className={classes.media} image={product.image} title="Paella dish" />
 
       <CardContent>
         <Typography align="center" color="textPrimary" variant="body1">
