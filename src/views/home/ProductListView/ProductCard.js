@@ -2,22 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import {
-  Avatar,
   Box,
   Card,
   CardContent,
   Divider,
   Typography,
-  IconButton,
+  Grid,
   CardMedia,
   CardHeader,
-  CardActions,
   makeStyles
 } from '@material-ui/core';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import ShareIcon from '@material-ui/icons/Share';
-import CommentIcon from '@material-ui/icons/Comment';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
+import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
+import AccessAlarmIcon from '@material-ui/icons/AccessAlarm';
 import getFromNow from 'src/utils/getFromNow';
 import UserAvatar from 'src/components/UserAvatar';
 
@@ -61,38 +57,42 @@ const useStyles = makeStyles((theme) => ({
 const ProductCard = ({ className, product, ...rest }) => {
   const classes = useStyles();
 
+  const formatNumber = (numberString) => {
+    return parseInt(numberString, 10).toLocaleString();
+  };
+
   return (
     <Card className={clsx(classes.root, className)} {...rest}>
       <CardHeader
         avatar={<UserAvatar className={classes.avatar} to="" user={product.user} />}
-        action={(
-          <IconButton aria-label="settings">
-            <MoreVertIcon />
-          </IconButton>
-        )}
         title={product.user.name}
         subheader={getFromNow(product.created_at)}
       />
-      <CardMedia className={classes.media} image={product.image} title="Paella dish" />
+      <CardMedia className={classes.media} image={product.image} title={product.name} />
 
       <CardContent>
-        <Typography align="center" color="textPrimary" variant="body1">
+        <Typography align="left" color="textPrimary" variant="body1">
           {product.name}
         </Typography>
       </CardContent>
       <Box flexGrow={1} />
       <Divider />
-      <CardActions disableSpacing>
-        <IconButton className={classes.iconbutton} aria-label="favorites">
-          <FavoriteIcon />
-        </IconButton>
-        <IconButton className={classes.iconbutton} aria-label="show more">
-          <CommentIcon />
-        </IconButton>
-        <IconButton className={classes.iconbutton} aria-label="share">
-          <ShareIcon />
-        </IconButton>
-      </CardActions>
+      <Box p={2}>
+        <Grid container justify="space-between" spacing={2}>
+          <Grid className={classes.statsItem} item>
+            <AttachMoneyIcon className={classes.statsIcon} color="action" />
+            <Typography color="textSecondary" display="inline" variant="body2">
+              { formatNumber(product.listed_price) }{' '}đ
+            </Typography>
+          </Grid>
+          <Grid className={classes.statsItem} item>
+            <AccessAlarmIcon className={classes.statsIcon} color="action" />
+            <Typography color="textSecondary" display="inline" variant="body2">
+              {product.auction_cnt}{' '}Auctions
+            </Typography>
+          </Grid>
+        </Grid>
+      </Box>
     </Card>
   );
 };
