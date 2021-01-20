@@ -17,8 +17,7 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: 800
   },
   image: {
-    width: 300,
-    height: 300
+    width: 300
   },
   img: {
     margin: 'auto',
@@ -51,14 +50,9 @@ const ProductCard = ({ product }) => {
                   ID:{' '}{product.id}
                 </Typography>
               </Grid>
-              <Grid item>
-                <Typography variant="body2" style={{ cursor: 'pointer' }}>
-                  Remove
-                </Typography>
-              </Grid>
             </Grid>
             <Grid item>
-              <Typography variant="subtitle1">{formatPrice(product.listed_price)}</Typography>
+              <Typography variant="subtitle1">{formatPrice(product.listed_price)}đ</Typography>
             </Grid>
           </Grid>
         </Grid>
