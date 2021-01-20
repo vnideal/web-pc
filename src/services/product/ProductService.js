@@ -39,9 +39,26 @@ const detail = async ({ id }) => {
   return result;
 };
 
+const myProducts = async () => {
+  let responseData;
+
+  try {
+    httpClientOptions.useAccessToken = true;
+    const httpClient = HttpClient(httpClientOptions);
+    const handleResponse = await httpClient.get('/api/v1/products');
+    responseData = await handleResponseData(handleResponse);
+  } catch (error) {
+    responseData = handleResponseError(error);
+  }
+  const { result } = responseData;
+
+  return result;
+};
+
 const ProductService = {
   listed,
-  detail
+  detail,
+  myProducts
 };
 
 export default ProductService;

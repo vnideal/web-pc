@@ -6,6 +6,7 @@ import moment from 'moment';
 import {
   Box,
   Button,
+  Typography,
   Card,
   CardHeader,
   Divider,
@@ -18,41 +19,9 @@ import {
 } from '@material-ui/core';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
+import getFromNow from 'src/utils/getFromNow';
 
-const data = [
-  {
-    id: uuid(),
-    name: 'Dropbox',
-    imageUrl: '/static/images/products/product_1.png',
-    updatedAt: moment().subtract(2, 'hours')
-  },
-  {
-    id: uuid(),
-    name: 'Medium Corporation',
-    imageUrl: '/static/images/products/product_2.png',
-    updatedAt: moment().subtract(2, 'hours')
-  },
-  {
-    id: uuid(),
-    name: 'Slack',
-    imageUrl: '/static/images/products/product_3.png',
-    updatedAt: moment().subtract(3, 'hours')
-  },
-  {
-    id: uuid(),
-    name: 'Lyft',
-    imageUrl: '/static/images/products/product_4.png',
-    updatedAt: moment().subtract(5, 'hours')
-  },
-  {
-    id: uuid(),
-    name: 'GitHub',
-    imageUrl: '/static/images/products/product_5.png',
-    updatedAt: moment().subtract(9, 'hours')
-  }
-];
-
-const useStyles = makeStyles(({
+const useStyles = makeStyles({
   root: {
     height: '100%'
   },
@@ -60,43 +29,36 @@ const useStyles = makeStyles(({
     height: 48,
     width: 48
   }
-}));
+});
 
-const LatestProducts = ({ className, ...rest }) => {
+const LatestProducts = ({ className, data, ...rest }) => {
   const classes = useStyles();
   const [products] = useState(data);
+  console.log(products);
+  if (products.length === 0) {
+    return (
+      <Card className={clsx(classes.root, className)} {...rest}>
+        <CardHeader subtitle={`${products.length} in total`} title="Latest Products" />
+        <Divider />
+        <Typography color="textPrimary" variant="h5">
+          No record
+        </Typography>
+      </Card>
+    );
+  }
 
   return (
-    <Card
-      className={clsx(classes.root, className)}
-      {...rest}
-    >
-      <CardHeader
-        subtitle={`${products.length} in total`}
-        title="Latest Products"
-      />
+    <Card className={clsx(classes.root, className)} {...rest}>
+      <CardHeader subtitle={`${products.length} in total`} title="Latest Products" />
       <Divider />
       <List>
         {products.map((product, i) => (
-          <ListItem
-            divider={i < products.length - 1}
-            key={product.id}
-          >
+          <ListItem divider={i < products.length - 1} key={product.id}>
             <ListItemAvatar>
-              <img
-                alt="Product"
-                className={classes.image}
-                src={product.imageUrl}
-              />
+              <img alt="Product" className={classes.image} src={product.image} />
             </ListItemAvatar>
-            <ListItemText
-              primary={product.name}
-              secondary={`Updated ${product.updatedAt.fromNow()}`}
-            />
-            <IconButton
-              edge="end"
-              size="small"
-            >
+            <ListItemText primary={product.name} secondary={`Created ${getFromNow(product.created_at)}`} />
+            <IconButton edge="end" size="small">
               <MoreVertIcon />
             </IconButton>
           </ListItem>
@@ -107,7 +69,8 @@ const LatestProducts = ({ className, ...rest }) => {
 };
 
 LatestProducts.propTypes = {
-  className: PropTypes.string
+  className: PropTypes.string,
+  data: PropTypes.array
 };
 
 export default LatestProducts;
