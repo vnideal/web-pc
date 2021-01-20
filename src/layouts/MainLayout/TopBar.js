@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 // eslint-disable-next-line object-curly-newline
@@ -90,7 +90,18 @@ const useStyles = makeStyles((theme) => ({
 const TopBar = ({ className, ...rest }) => {
   const classes = useStyles();
   const [notifications] = useState([]);
+  const [searchQuery, setSearchQuery] = useState();
   const isLogin = AuthenticationService.isLogin();
+  const navigate = useNavigate();
+
+  const handleBlur = (event) => {
+    const query = event.target.value;
+    navigate(`/search?q=${query}`, { replace: true });
+  };
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    navigate(`/search?q=${searchQuery}`, { replace: true });
+  };
 
   return (
     <AppBar className={clsx(classes.root, className)} elevation={0} {...rest}>
@@ -108,14 +119,18 @@ const TopBar = ({ className, ...rest }) => {
           <div className={classes.searchIcon}>
             <SearchIcon />
           </div>
-          <InputBase
-            placeholder="Search…"
-            classes={{
-              root: classes.inputRoot,
-              input: classes.inputInput
-            }}
-            inputProps={{ 'aria-label': 'search' }}
-          />
+          <form onSubmit={handleSubmit}>
+            <InputBase
+              placeholder="Search…"
+              classes={{
+                root: classes.inputRoot,
+                input: classes.inputInput
+              }}
+              inputProps={{ 'aria-label': 'search' }}
+              onBlur={handleBlur}
+              onChange={(event) => setSearchQuery(event.target.value)}
+            />
+          </form>
         </div>
         <Hidden mdDown>
           <Tooltip title="Notifications">

@@ -39,7 +39,7 @@ const MainLayout = () => {
       <div className={classes.wrapper}>
         <div className={classes.contentContainer}>
           <div className={classes.content}>
-            <Outlet />
+            <Outlet searchQuery />
           </div>
         </div>
       </div>
