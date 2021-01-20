@@ -50,6 +50,14 @@ const routes = (isLoggedIn) => [
     ]
   },
   {
+    path: '/search',
+    element: <MainLayout />,
+    children: [
+      { path: '/', element: <HomeView /> },
+      { path: '*', element: <Navigate to="/404" /> }
+    ]
+  },
+  {
     path: '/',
     element: <MainLayout />,
     children: [

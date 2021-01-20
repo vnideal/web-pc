@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+import qs from 'qs';
 import { Box, Container, Grid, makeStyles } from '@material-ui/core';
 import { Pagination } from '@material-ui/lab';
 import Page from 'src/components/Page';
@@ -22,11 +24,14 @@ const ProductList = () => {
   const classes = useStyles();
   const [products, setProducts] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
+  const location = useLocation();
+  const params = qs.parse(location.search, { ignoreQueryPrefix: true });
+  const searchQuery = params.q ? params.q : '';
 
   useEffect(() => {
     let mounted = true;
 
-    ProductService.listed({ page: 1, query: '' }).then((result) => {
+    ProductService.listed({ page: 1, query: searchQuery }).then((result) => {
       if (mounted) {
         setProducts(result.data);
         setIsLoaded(true);
@@ -35,7 +40,7 @@ const ProductList = () => {
 
     // eslint-disable-next-line no-return-assign
     return () => (mounted = false);
-  }, []);
+  }, [searchQuery]);
 
   if (!isLoaded) {
     return <Loading />;
@@ -53,9 +58,9 @@ const ProductList = () => {
             ))}
           </Grid>
         </Box>
-        <Box mt={3} display="flex" justifyContent="center">
+        {/* <Box mt={3} display="flex" justifyContent="center">
           <Pagination color="primary" count={3} size="small" />
-        </Box>
+        </Box> */}
       </Container>
     </Page>
   );
