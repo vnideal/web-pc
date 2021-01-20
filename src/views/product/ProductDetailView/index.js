@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Grid, makeStyles } from '@material-ui/core';
+import { useParams } from 'react-router-dom';
+import { Box, Container, Grid, makeStyles } from '@material-ui/core';
 import Page from 'src/components/Page';
+import ProductService from 'src/services/product/ProductService';
 import Loading from 'src/components/Loading';
-import ProfileService from 'src/services/profile/ProfileService';
-import Profile from './Profile';
-import ProfileDetails from './ProfileDetails';
+import ProductCard from './ProductCard';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -12,20 +12,24 @@ const useStyles = makeStyles((theme) => ({
     minHeight: '100%',
     paddingBottom: theme.spacing(3),
     paddingTop: theme.spacing(3)
+  },
+  productCard: {
+    height: '100%'
   }
 }));
 
-const Account = () => {
+const ProductDetail = () => {
   const classes = useStyles();
-  const [user, setUser] = useState([]);
+  const [product, setProduct] = useState({});
   const [isLoaded, setIsLoaded] = useState(false);
+  const { id } = useParams();
 
   useEffect(() => {
     let mounted = true;
 
-    ProfileService.info().then((userInfo) => {
+    ProductService.detail({ id }).then((result) => {
       if (mounted) {
-        setUser(userInfo);
+        setProduct(result);
         setIsLoaded(true);
       }
     });
@@ -39,19 +43,12 @@ const Account = () => {
   }
 
   return (
-    <Page className={classes.root} title="Account">
-      <Container maxWidth="lg">
-        <Grid container spacing={3}>
-          <Grid item lg={4} md={6} xs={12}>
-            <Profile user={user} />
-          </Grid>
-          <Grid item lg={8} md={6} xs={12}>
-            <ProfileDetails user={user} />
-          </Grid>
-        </Grid>
+    <Page className={classes.root} title="Product">
+      <Container maxWidth={false}>
+        <ProductCard product={product} />
       </Container>
     </Page>
   );
 };
 
-export default Account;
+export default ProductDetail;

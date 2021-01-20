@@ -10,17 +10,60 @@ import NotFoundView from 'src/views/errors/NotFoundView';
 import ProductListView from 'src/views/product/ProductListView';
 import RegisterView from 'src/views/auth/RegisterView';
 import SettingsView from 'src/views/settings/SettingsView';
+import HomeView from 'src/views/home/ProductListView';
+import ProductDetailView from 'src/views/product/ProductDetailView';
+import ProductAddView from 'src/views/product/ProductAddView';
 
-const routes = [
+const routes = (isLoggedIn) => [
   {
     path: 'app',
-    element: <DashboardLayout />,
+    element: isLoggedIn ? <DashboardLayout /> : <Navigate to="/login" />,
     children: [
       { path: 'account', element: <AccountView /> },
       { path: 'customers', element: <CustomerListView /> },
       { path: 'dashboard', element: <DashboardView /> },
-      { path: 'products', element: <ProductListView /> },
+      { path: 'products/add', element: <ProductAddView /> },
       { path: 'settings', element: <SettingsView /> },
+      { path: '*', element: <Navigate to="/404" /> }
+    ]
+  },
+  {
+    path: '/login',
+    element: isLoggedIn ? <Navigate to="/app/dashboard" /> : <MainLayout />,
+    children: [
+      { path: '/', element: <LoginView /> },
+      { path: '*', element: <Navigate to="/404" /> }
+    ]
+  },
+  {
+    path: '/404',
+    element: <MainLayout />,
+    children: [
+      { path: '/', element: <NotFoundView /> },
+      { path: '*', element: <Navigate to="/404" /> }
+    ]
+  },
+  {
+    path: '/register',
+    element: isLoggedIn ? <Navigate to="/app/dashboard" /> : <MainLayout />,
+    children: [
+      { path: '/', element: <RegisterView /> },
+      { path: '*', element: <Navigate to="/404" /> }
+    ]
+  },
+  {
+    path: '/search',
+    element: <MainLayout />,
+    children: [
+      { path: '/', element: <HomeView /> },
+      { path: '*', element: <Navigate to="/404" /> }
+    ]
+  },
+  {
+    path: '/products/',
+    element: <MainLayout />,
+    children: [
+      { path: '/:id', element: <ProductDetailView /> },
       { path: '*', element: <Navigate to="/404" /> }
     ]
   },
@@ -28,10 +71,7 @@ const routes = [
     path: '/',
     element: <MainLayout />,
     children: [
-      { path: 'login', element: <LoginView /> },
-      { path: 'register', element: <RegisterView /> },
-      { path: '404', element: <NotFoundView /> },
-      { path: '/', element: <Navigate to="/app/dashboard" /> },
+      { path: '/', element: <HomeView /> },
       { path: '*', element: <Navigate to="/404" /> }
     ]
   }

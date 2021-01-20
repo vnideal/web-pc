@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flex: '1 1 auto',
     overflow: 'hidden',
-    paddingTop: 64
+    paddingTop: 48
   },
   contentContainer: {
     display: 'flex',
@@ -25,7 +25,8 @@ const useStyles = makeStyles((theme) => ({
   content: {
     flex: '1 1 auto',
     height: '100%',
-    overflow: 'auto'
+    overflow: 'auto',
+    WebkitOverflowScrolling: 'touch'
   }
 }));
 
@@ -38,7 +39,7 @@ const MainLayout = () => {
       <div className={classes.wrapper}>
         <div className={classes.contentContainer}>
           <div className={classes.content}>
-            <Outlet />
+            <Outlet searchQuery />
           </div>
         </div>
       </div>
