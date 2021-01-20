@@ -1,10 +1,9 @@
-import React from 'react';
-import {
-  Container,
-  Grid,
-  makeStyles
-} from '@material-ui/core';
+import React, { useState, useEffect } from 'react';
+import { Link as RouterLink, useLocation } from 'react-router-dom';
+import { Container, Grid, Box, Button, makeStyles } from '@material-ui/core';
 import Page from 'src/components/Page';
+import ProductService from 'src/services/product/ProductService';
+import Loading from 'src/components/Loading';
 import Budget from './Budget';
 import LatestOrders from './LatestOrders';
 import LatestProducts from './LatestProducts';
@@ -26,87 +25,38 @@ const useStyles = makeStyles((theme) => ({
 const Dashboard = () => {
   const classes = useStyles();
 
+  const [products, setProducts] = useState([]);
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  useEffect(() => {
+    let mounted = true;
+
+    ProductService.myProducts().then((result) => {
+      if (mounted) {
+        setProducts(result.data);
+        setIsLoaded(true);
+      }
+    });
+
+    // eslint-disable-next-line no-return-assign
+    return () => (mounted = false);
+  }, []);
+
+  if (!isLoaded) {
+    return <Loading />;
+  }
+
   return (
-    <Page
-      className={classes.root}
-      title="Dashboard"
-    >
+    <Page className={classes.root} title="Dashboard">
       <Container maxWidth={false}>
-        <Grid
-          container
-          spacing={3}
-        >
-          <Grid
-            item
-            lg={3}
-            sm={6}
-            xl={3}
-            xs={12}
-          >
-            <Budget />
-          </Grid>
-          <Grid
-            item
-            lg={3}
-            sm={6}
-            xl={3}
-            xs={12}
-          >
-            <TotalCustomers />
-          </Grid>
-          <Grid
-            item
-            lg={3}
-            sm={6}
-            xl={3}
-            xs={12}
-          >
-            <TasksProgress />
-          </Grid>
-          <Grid
-            item
-            lg={3}
-            sm={6}
-            xl={3}
-            xs={12}
-          >
-            <TotalProfit />
-          </Grid>
-          <Grid
-            item
-            lg={8}
-            md={12}
-            xl={9}
-            xs={12}
-          >
-            <Sales />
-          </Grid>
-          <Grid
-            item
-            lg={4}
-            md={6}
-            xl={3}
-            xs={12}
-          >
-            <TrafficByDevice />
-          </Grid>
-          <Grid
-            item
-            lg={4}
-            md={6}
-            xl={3}
-            xs={12}
-          >
-            <LatestProducts />
-          </Grid>
-          <Grid
-            item
-            lg={8}
-            md={12}
-            xl={9}
-            xs={12}
-          >
-            <LatestOrders />
+        <Box display="flex" justifyContent="flex-end" marginBottom={3}>
+          <Button color="primary" variant="contained">
+            Add product
+          </Button>
+        </Box>
+        <Grid container>
+          <Grid item md={12} xs={12} sm={12}>
+            <LatestProducts data={products} />
           </Grid>
         </Grid>
       </Container>
