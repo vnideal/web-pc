@@ -6,8 +6,7 @@ import { Box, Divider, Drawer, Hidden, List, Typography, makeStyles } from '@mat
 import {
   Settings as SettingsIcon,
   ShoppingBag as ShoppingBagIcon,
-  Home as HomeIcon,
-  AlignJustify as ServicesIcon
+  Home as HomeIcon
 } from 'react-feather';
 import ProfileService from 'src/services/profile/ProfileService';
 import UserAvatar from 'src/components/UserAvatar';
@@ -18,11 +17,6 @@ const items = [
     href: '/app/dashboard',
     icon: HomeIcon,
     title: 'Dashboard'
-  },
-  {
-    href: '/app/products',
-    icon: ShoppingBagIcon,
-    title: 'Products'
   },
   {
     href: '/app/settings',

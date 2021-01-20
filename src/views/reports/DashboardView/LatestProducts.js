@@ -102,21 +102,6 @@ const LatestProducts = ({ className, ...rest }) => {
           </ListItem>
         ))}
       </List>
-      <Divider />
-      <Box
-        display="flex"
-        justifyContent="flex-end"
-        p={2}
-      >
-        <Button
-          color="primary"
-          endIcon={<ArrowRightIcon />}
-          size="small"
-          variant="text"
-        >
-          View all
-        </Button>
-      </Box>
     </Card>
   );
 };
