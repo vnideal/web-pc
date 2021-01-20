@@ -28,8 +28,9 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const ProductCard = ({ product, priceList }) => {
+const ProductCard = ({ product }) => {
   const classes = useStyles();
+  console.log(product);
 
   return (
     <div className={classes.root}>
@@ -66,7 +67,6 @@ const ProductCard = ({ product, priceList }) => {
   );
 };
 ProductCard.propTypes = {
-  product: PropTypes.object.isRequired,
-  priceList: PropTypes.array
+  product: PropTypes.object.isRequired
 };
 export default ProductCard;

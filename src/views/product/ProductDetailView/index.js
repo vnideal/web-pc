@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
-import qs from 'qs';
+import { useParams } from 'react-router-dom';
 import { Box, Container, Grid, makeStyles } from '@material-ui/core';
 import Page from 'src/components/Page';
 import ProductService from 'src/services/product/ProductService';
@@ -19,27 +18,25 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const ProductList = () => {
+const ProductDetail = () => {
   const classes = useStyles();
-  const [product, setProduct] = useState([]);
+  const [product, setProduct] = useState({});
   const [isLoaded, setIsLoaded] = useState(false);
-  const location = useLocation();
-  const params = qs.parse(location.search, { ignoreQueryPrefix: true });
-  const searchQuery = params.q ? params.q : '';
+  const { id } = useParams();
 
   useEffect(() => {
     let mounted = true;
 
-    ProductService.detail({ id: 1 }).then((result) => {
+    ProductService.detail({ id }).then((result) => {
       if (mounted) {
-        setProduct(result.data);
+        setProduct(result);
         setIsLoaded(true);
       }
     });
 
     // eslint-disable-next-line no-return-assign
     return () => (mounted = false);
-  }, [searchQuery]);
+  }, []);
 
   if (!isLoaded) {
     return <Loading />;
@@ -48,10 +45,10 @@ const ProductList = () => {
   return (
     <Page className={classes.root} title="Product">
       <Container maxWidth={false}>
-        <ProductCard product />
+        <ProductCard product={product} />
       </Container>
     </Page>
   );
 };
 
-export default ProductList;
+export default ProductDetail;

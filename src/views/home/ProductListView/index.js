@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { Link as RouterLink, useLocation } from 'react-router-dom';
 import qs from 'qs';
 import { Box, Container, Grid, makeStyles } from '@material-ui/core';
-import { Pagination } from '@material-ui/lab';
 import Page from 'src/components/Page';
 import ProductService from 'src/services/product/ProductService';
 import Loading from 'src/components/Loading';
@@ -53,7 +52,9 @@ const ProductList = () => {
           <Grid container spacing={3}>
             {products.map((product) => (
               <Grid item key={product.id} lg={3} md={6} xs={12}>
-                <ProductCard className={classes.productCard} product={product} />
+                <RouterLink to={`/products/${product.id}`}>
+                  <ProductCard className={classes.productCard} product={product} />
+                </RouterLink>
               </Grid>
             ))}
           </Grid>
