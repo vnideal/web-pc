@@ -11,6 +11,7 @@ import ProductListView from 'src/views/product/ProductListView';
 import RegisterView from 'src/views/auth/RegisterView';
 import SettingsView from 'src/views/settings/SettingsView';
 import HomeView from 'src/views/home/ProductListView';
+import ProductDetailView from 'src/views/product/ProductDetailView';
 
 const routes = (isLoggedIn) => [
   {
@@ -54,6 +55,14 @@ const routes = (isLoggedIn) => [
     element: <MainLayout />,
     children: [
       { path: '/', element: <HomeView /> },
+      { path: '*', element: <Navigate to="/404" /> }
+    ]
+  },
+  {
+    path: '/products/:id',
+    element: <MainLayout />,
+    children: [
+      { path: '/', element: <ProductDetailView /> },
       { path: '*', element: <Navigate to="/404" /> }
     ]
   },

@@ -24,8 +24,24 @@ const listed = async ({ query, page }) => {
   return result;
 };
 
+const detail = async ({ id }) => {
+  let responseData;
+
+  try {
+    const httpClient = HttpClient(httpClientOptions);
+    const handleResponse = await httpClient.get(`/api/v1/products/listed/${id}`);
+    responseData = await handleResponseData(handleResponse);
+  } catch (error) {
+    responseData = handleResponseError(error);
+  }
+  const { result } = responseData;
+
+  return result;
+};
+
 const ProductService = {
-  listed
+  listed,
+  detail
 };
 
 export default ProductService;
