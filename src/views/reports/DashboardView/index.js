@@ -50,7 +50,7 @@ const Dashboard = () => {
     <Page className={classes.root} title="Dashboard">
       <Container maxWidth={false}>
         <Box display="flex" justifyContent="flex-end" marginBottom={3}>
-          <Button color="primary" variant="contained">
+          <Button color="primary" variant="contained" component={RouterLink} to="/app/products/add">
             Add product
           </Button>
         </Box>

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
 import clsx from 'clsx';
@@ -29,16 +30,17 @@ const useStyles = makeStyles(() => ({
 const ProductNew = ({ className, ...rest }) => {
   const classes = useStyles();
   const [pictures, setPictures] = useState([]);
+  const navigate = useNavigate();
 
   const handleSelectFile = (picture) => {
-    setPictures([...pictures, picture]);
+    setPictures(picture);
   };
 
   const handleSubmitForm = (values, { setSubmitting, setErrors }) => {
-    ProductService.add(values.name, values.category, values.price, values.file).then((response) => {
+    ProductService.add(values.name, values.category, values.price, pictures).then((response) => {
       setSubmitting(false);
       if (response.result) {
-        window.location.reload();
+        navigate('/app/dashboard', { replace: true });
       } else {
         setErrors(response.errors);
       }
@@ -89,6 +91,7 @@ const ProductNew = ({ className, ...rest }) => {
                     withPreview
                     buttonText="Choose images"
                     onChange={handleSelectFile}
+                    name="files"
                     imgExtension={['.jpg', '.gif', '.png', '.gif']}
                     maxFileSize={5242880}
                   />
