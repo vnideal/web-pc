@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
-// eslint-disable-next-line object-curly-newline
 import { Box, Button, Card, CardContent, CardHeader, Divider, Grid, TextField, makeStyles } from '@material-ui/core';
+import ImageUploader from 'react-images-upload';
 import ProductService from 'src/services/product/ProductService';
 
 const categories = [
@@ -28,8 +28,11 @@ const useStyles = makeStyles(() => ({
 
 const ProductNew = ({ className, ...rest }) => {
   const classes = useStyles();
+  const [pictures, setPictures] = useState([]);
 
-  const handleSelectFile = () => {};
+  const handleSelectFile = (picture) => {
+    setPictures([...pictures, picture]);
+  };
 
   const handleSubmitForm = (values, { setSubmitting, setErrors }) => {
     ProductService.add(values.name, values.category, values.price, values.file).then((response) => {
@@ -47,12 +50,15 @@ const ProductNew = ({ className, ...rest }) => {
       initialValues={{
         name: '',
         category: 1,
-        price: 0
+        price: ''
       }}
       validationSchema={Yup.object().shape({
         name: Yup.string()
           .max(255)
-          .required('Name is required')
+          .required('Title is required'),
+        price: Yup.string()
+          .max(255)
+          .required('Price is required')
       })}
       onSubmit={(values, { setSubmitting, setErrors }) => handleSubmitForm(values, { setSubmitting, setErrors })}
     >
@@ -63,18 +69,28 @@ const ProductNew = ({ className, ...rest }) => {
             <Divider />
             <CardContent>
               <Grid container spacing={3}>
-                <Grid item md={6} xs={12}>
+                <Grid item md={12} xs={12}>
                   <TextField
                     error={Boolean(touched.name && errors.name)}
                     fullWidth
                     helperText={touched.name && errors.name}
-                    label="Name"
+                    label="Title"
                     name="name"
                     onBlur={handleBlur}
                     onChange={handleChange}
                     required
                     value={values.name}
                     variant="outlined"
+                  />
+                </Grid>
+                <Grid item md={12} xs={12}>
+                  <ImageUploader
+                    withIcon
+                    withPreview
+                    buttonText="Choose images"
+                    onChange={handleSelectFile}
+                    imgExtension={['.jpg', '.gif', '.png', '.gif']}
+                    maxFileSize={5242880}
                   />
                 </Grid>
                 <Grid item md={6} xs={12}>
@@ -112,25 +128,6 @@ const ProductNew = ({ className, ...rest }) => {
                       </option>
                     ))}
                   </TextField>
-                </Grid>
-                <Grid item md={6} xs={12}>
-                  <TextField
-                    error={Boolean(touched.file && errors.file)}
-                    fullWidth
-                    helperText={touched.file && errors.file}
-                    label="File"
-                    name="file"
-                    onBlur={handleBlur}
-                    onChange={handleChange}
-                    required
-                    value={values.state}
-                    variant="outlined"
-                    disabled
-                  />
-                  <Button color="primary" fullWidth variant="contained" component="label" disabled={isSubmitting}>
-                    Upload picture
-                    <input accept="image/*" type="file" hidden onChange={handleSelectFile} />
-                  </Button>
                 </Grid>
               </Grid>
             </CardContent>
