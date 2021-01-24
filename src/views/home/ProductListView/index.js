@@ -19,9 +19,14 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: 0,
     paddingRight: 0
   },
+  infiniteScroll: {
+    height: '700px',
+    overflow: 'auto',
+    WebkitOverflowScrolling: 'touch'
+  },
   item: {
-    paddingTop: theme.spacing(2),
-    paddingBottom: theme.spacing(2),
+    paddingTop: theme.spacing(1),
+    paddingBottom: theme.spacing(1),
     paddingLeft: theme.spacing(1),
     paddingRight: theme.spacing(1)
   },
@@ -34,7 +39,7 @@ const ProductList = () => {
   const classes = useStyles();
   const [products, setProducts] = useState([]);
   const [hasMore, setHasMore] = useState(true);
-  const [isLoaded, setIsLoaded] = useState(false);
+  const [keyword, setKeyword] = useState('');
   const location = useLocation();
   const params = qs.parse(location.search, { ignoreQueryPrefix: true });
   const searchQuery = params.q ? params.q : '';
@@ -42,30 +47,32 @@ const ProductList = () => {
   const loadFunc = (page, query) => {
     ProductService.listed({ page, query: query }).then((result) => {
       setProducts([...products, ...result.data]);
-      setIsLoaded(true);
       setHasMore(products.length < result.pagination.total);
     });
   };
 
   const handleLoadMore = (page) => {
     console.log(page);
-    loadFunc(page, '');
+    loadFunc(page, keyword);
   };
 
   useEffect(() => {
-    loadFunc(1, searchQuery);
+    if (keyword != searchQuery) {
+      setKeyword(searchQuery);
+      // setProducts([]);
+    }
   }, [searchQuery]);
 
-  if (!isLoaded) {
-    return <Loading />;
-  }
+  // if (!isLoaded) {
+  //   return <Loading />;
+  // }
 
   return (
     <Page className={classes.root} title="Products">
       <Container className={classes.container} maxWidth={true}>
-        <Box style={{ height: '700px', overflow: 'auto', WebkitOverflowScrolling: 'touch' }}>
+        <Box className={classes.infiniteScroll}>
           <InfiniteScroll
-            pageStart={1}
+            pageStart={0}
             loadMore={handleLoadMore}
             hasMore={hasMore}
             loader={
