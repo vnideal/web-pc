@@ -75,11 +75,7 @@ const ProductList = () => {
             pageStart={0}
             loadMore={handleLoadMore}
             hasMore={hasMore}
-            loader={
-              <div className="loader" key={0}>
-                Loading ...
-              </div>
-            }
+            loader={<Loading />}
             useWindow={false}
           >
             <Grid container>
