@@ -34,7 +34,7 @@ const useStyles = makeStyles({
 const LatestProducts = ({ className, data, ...rest }) => {
   const classes = useStyles();
   const [products] = useState(data);
-  console.log(products);
+
   if (products.length === 0) {
     return (
       <Card className={clsx(classes.root, className)} {...rest}>

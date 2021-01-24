@@ -27,7 +27,7 @@ const ProductDetail = () => {
   useEffect(() => {
     let mounted = true;
 
-    ProductService.detail({ id }).then((result) => {
+    ProductService.detail(id).then((result) => {
       if (mounted) {
         setProduct(result);
         setIsLoaded(true);

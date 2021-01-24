@@ -14,7 +14,6 @@ const signin = async (email, password) => {
     });
     result = await handleResponseData(handleResponse);
   } catch (error) {
-    console.log(error);
     result = handleResponseError(error);
   }
   return result;

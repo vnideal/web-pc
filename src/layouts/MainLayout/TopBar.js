@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
-// eslint-disable-next-line object-curly-newline
 import {
   AppBar,
   Badge,

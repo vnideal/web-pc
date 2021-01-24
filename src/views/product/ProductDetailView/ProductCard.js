@@ -29,7 +29,6 @@ const useStyles = makeStyles((theme) => ({
 
 const ProductCard = ({ product }) => {
   const classes = useStyles();
-  console.log(product);
 
   return (
     <div className={classes.root}>

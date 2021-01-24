@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
-// eslint-disable-next-line object-curly-newline
 import { AppBar, Badge, Box, Hidden, IconButton, Toolbar, Tooltip, fade, makeStyles } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import NotificationsIcon from '@material-ui/icons/NotificationsOutlined';
