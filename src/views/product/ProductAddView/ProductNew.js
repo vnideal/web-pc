@@ -4,7 +4,18 @@ import * as Yup from 'yup';
 import { Formik } from 'formik';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
-import { Box, Button, Card, CardContent, CardHeader, Divider, Grid, TextField, makeStyles } from '@material-ui/core';
+import {
+  Box,
+  Button,
+  Card,
+  CardContent,
+  CardHeader,
+  Divider,
+  Grid,
+  TextField,
+  Typography,
+  makeStyles
+} from '@material-ui/core';
 import ImageUploader from 'react-images-upload';
 import ProductService from 'src/services/product/ProductService';
 
@@ -58,9 +69,14 @@ const ProductNew = ({ className, ...rest }) => {
         name: Yup.string()
           .max(255)
           .required('Title is required'),
-        price: Yup.string()
-          .max(255)
-          .required('Price is required')
+        price: Yup.number()
+          .required()
+          .min(10000)
+          .integer()
+          .required('Price is required'),
+        files: Yup.mixed().test('imageRequired', 'Images is required', () => {
+          return pictures.length > 0;
+        })
       })}
       onSubmit={(values, { setSubmitting, setErrors }) => handleSubmitForm(values, { setSubmitting, setErrors })}
     >
@@ -95,6 +111,11 @@ const ProductNew = ({ className, ...rest }) => {
                     imgExtension={['.jpg', '.gif', '.png', '.gif']}
                     maxFileSize={5242880}
                   />
+                  {errors.files ? (
+                    <Typography color="error" variant="body2">
+                      {errors.files}
+                    </Typography>
+                  ) : null}
                 </Grid>
                 <Grid item md={6} xs={12}>
                   <TextField

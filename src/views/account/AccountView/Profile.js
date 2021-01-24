@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import moment from 'moment';
-// eslint-disable-next-line object-curly-newline
 import { Box, Button, Card, CardActions, CardContent, Divider, Typography, makeStyles } from '@material-ui/core';
 import UserAvatar from 'src/components/UserAvatar';
 import ProfileService from 'src/services/profile/ProfileService';

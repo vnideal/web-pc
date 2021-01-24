@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
-// eslint-disable-next-line object-curly-newline
 import { Box, Divider, Drawer, Hidden, List, Typography, makeStyles } from '@material-ui/core';
 import {
   Settings as SettingsIcon,

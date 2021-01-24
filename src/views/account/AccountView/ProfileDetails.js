@@ -3,7 +3,6 @@ import * as Yup from 'yup';
 import { Formik } from 'formik';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
-// eslint-disable-next-line object-curly-newline
 import { Box, Button, Card, CardContent, CardHeader, Divider, Grid, TextField, makeStyles } from '@material-ui/core';
 import ProfileService from 'src/services/profile/ProfileService';
 
@@ -68,7 +67,9 @@ const ProfileDetails = ({ className, user, ...rest }) => {
         displayName: Yup.string()
           .max(255)
           .required('Display name is required'),
-        phone: Yup.string().nullable().max(14),
+        phone: Yup.string()
+          .nullable()
+          .max(14),
         state: Yup.string()
           .max(255)
           .required('State name is required')
