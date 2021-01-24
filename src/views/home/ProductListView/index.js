@@ -13,12 +13,17 @@ const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: theme.palette.background.dark,
     minHeight: '100%',
-    paddingBottom: theme.spacing(3),
-    paddingTop: theme.spacing(3)
+    paddingBottom: theme.spacing(3)
   },
   container: {
     paddingLeft: 0,
     paddingRight: 0
+  },
+  item: {
+    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(2),
+    paddingLeft: theme.spacing(1),
+    paddingRight: theme.spacing(1)
   },
   productCard: {
     height: '100%'
@@ -72,7 +77,7 @@ const ProductList = () => {
           >
             <Grid container>
               {products.map((product) => (
-                <Grid item key={product.id} lg={3} md={6} xs={12}>
+                <Grid item key={product.id} lg={3} md={6} xs={12} className={classes.item}>
                   <RouterLink to={`/products/${product.id}`}>
                     <ProductCard className={classes.productCard} product={product} />
                   </RouterLink>
