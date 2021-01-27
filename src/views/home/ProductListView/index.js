@@ -20,7 +20,8 @@ const useStyles = makeStyles((theme) => ({
     paddingRight: 0
   },
   infiniteScroll: {
-    height: '700px',
+    height: 'calc(100vh - 10px)',
+    paddingBottom: '40px',
     overflow: 'auto',
     WebkitOverflowScrolling: 'touch'
   },
@@ -46,37 +47,42 @@ const ProductList = () => {
 
   const loadFunc = (page, query) => {
     ProductService.listed({ page, query: query }).then((result) => {
-      setProducts([...products, ...result.data]);
+      if (page == 1) {
+        setProducts(result.data);
+      } else {
+        setProducts([...products, ...result.data]);
+      }
       setHasMore(products.length < result.pagination.total);
     });
   };
 
   const handleLoadMore = (page) => {
-    console.log(page);
     loadFunc(page, keyword);
   };
 
   useEffect(() => {
     if (keyword != searchQuery) {
       setKeyword(searchQuery);
-      // setProducts([]);
+      setProducts([]);
+      loadFunc(1, searchQuery);
+    } else {
+      if (keyword == '') {
+        loadFunc(1, '');
+      }
     }
   }, [searchQuery]);
-
-  // if (!isLoaded) {
-  //   return <Loading />;
-  // }
 
   return (
     <Page className={classes.root} title="Products">
       <Container className={classes.container} maxWidth={true}>
         <Box className={classes.infiniteScroll}>
           <InfiniteScroll
-            pageStart={0}
+            pageStart={1}
             loadMore={handleLoadMore}
             hasMore={hasMore}
             loader={<Loading />}
             useWindow={false}
+            initialLoad={false}
           >
             <Grid container>
               {products.map((product) => (
