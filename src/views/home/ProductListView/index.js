@@ -40,7 +40,6 @@ const ProductList = () => {
   const classes = useStyles();
   const [products, setProducts] = useState([]);
   const [hasMore, setHasMore] = useState(true);
-  const [keyword, setKeyword] = useState('');
   const location = useLocation();
   const params = qs.parse(location.search, { ignoreQueryPrefix: true });
   const searchQuery = params.q ? params.q : '';
@@ -57,19 +56,11 @@ const ProductList = () => {
   };
 
   const handleLoadMore = (page) => {
-    loadFunc(page, keyword);
+    loadFunc(page, searchQuery);
   };
 
   useEffect(() => {
-    if (keyword != searchQuery) {
-      setKeyword(searchQuery);
-      setProducts([]);
-      loadFunc(1, searchQuery);
-    } else {
-      if (keyword == '') {
-        loadFunc(1, '');
-      }
-    }
+    loadFunc(1, searchQuery);
   }, [searchQuery]);
 
   return (
