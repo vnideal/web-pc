@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Link as RouterLink, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import qs from 'qs';
 import { Box, Container, Grid, makeStyles } from '@material-ui/core';
 import Page from 'src/components/Page';
 import ProductService from 'src/services/product/ProductService';
-import Loading from 'src/components/Loading';
 import ProductCardList from 'src/components/Default/Product/ProductCardList';
-import InfiniteScroll from 'react-infinite-scroller';
-import ProductCard from './ProductCard';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -66,26 +63,7 @@ const ProductList = () => {
   return (
     <Page className={classes.root} title="Products">
       <Container className={classes.container} maxWidth={true}>
-        <Box className={classes.infiniteScroll}>
-          <InfiniteScroll
-            pageStart={1}
-            loadMore={handleLoadMore}
-            hasMore={hasMore}
-            loader={<Loading />}
-            useWindow={false}
-            initialLoad={false}
-          >
-            <Grid container>
-              {products.map((product) => (
-                <Grid item key={product.id} lg={3} md={6} xs={12} className={classes.item}>
-                  <RouterLink to={`/products/${product.id}`}>
-                    <ProductCard className={classes.productCard} product={product} />
-                  </RouterLink>
-                </Grid>
-              ))}
-            </Grid>
-          </InfiniteScroll>
-        </Box>
+        <ProductCardList products={products} hasMore={hasMore} loadMore={handleLoadMore} />
       </Container>
     </Page>
   );

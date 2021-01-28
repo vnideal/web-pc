@@ -1,49 +1,64 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { makeStyles } from '@material-ui/styles';
 import PropTypes from 'prop-types';
-import { Grid } from '@material-ui/core';
+import { Box, Grid } from '@material-ui/core';
 import ProductCard from 'src/components/Default/Product/ProductCard';
-import InfiniteScroll from 'react-infinite-scroll-component';
-import ProductService from 'src/services/product/ProductService';
+import Loading from 'src/components/Loading';
+import InfiniteScroll from 'react-infinite-scroller';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
+  root: {
+    backgroundColor: theme.palette.background.dark,
+    minHeight: '100%',
+    paddingBottom: theme.spacing(3)
+  },
+  container: {
+    paddingLeft: 0,
+    paddingRight: 0
+  },
+  infiniteScroll: {
+    height: 'calc(100vh - 10px)',
+    paddingBottom: '40px',
+    overflow: 'auto',
+    WebkitOverflowScrolling: 'touch'
+  },
+  item: {
+    paddingTop: theme.spacing(1),
+    paddingBottom: theme.spacing(1),
+    paddingLeft: theme.spacing(1),
+    paddingRight: theme.spacing(1)
+  },
   productCard: {
     height: '100%'
   }
 }));
 
 const ProductCardList = (props) => {
-  const { loadMore, hasMore } = props;
-  const [products, setProducts] = useState(props.products);
   const classes = useStyles();
-  const loadFunc = (page) => {
-    ProductService.listed({ page, query: '' }).then((result) => {
-      setProducts([...products, ...result.data]);
-    });
-  };
+  const { products, hasMore, loadMore } = props;
 
   return (
-    <InfiniteScroll
-      dataLength={products.length} //This is important field to render the next data
-      next={loadFunc}
-      hasMore={true}
-      loader={
-        <div className="loader" key={0}>
-          Loading ...
-        </div>
-      }
-    >
-      <Grid container spacing={3}>
-        {products.map((product) => (
-          <Grid item key={product.id} lg={3} md={6} xs={12}>
-            <RouterLink to={`/products/${product.id}`}>
-              <ProductCard className={classes.productCard} product={product} />
-            </RouterLink>
-          </Grid>
-        ))}
-      </Grid>
-    </InfiniteScroll>
+    <Box className={classes.infiniteScroll}>
+      <InfiniteScroll
+        pageStart={1}
+        loadMore={loadMore}
+        hasMore={hasMore}
+        loader={<Loading />}
+        useWindow={false}
+        initialLoad={false}
+      >
+        <Grid container>
+          {products.map((product) => (
+            <Grid item key={product.id} lg={3} md={6} xs={12} className={classes.item}>
+              <RouterLink to={`/products/${product.id}`}>
+                <ProductCard className={classes.productCard} product={product} />
+              </RouterLink>
+            </Grid>
+          ))}
+        </Grid>
+      </InfiniteScroll>
+    </Box>
   );
 };
 
