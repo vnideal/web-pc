@@ -9,12 +9,11 @@ import ProductCard from './ProductCard';
 const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: theme.palette.background.dark,
-    minHeight: '100%',
-    paddingBottom: theme.spacing(3),
-    paddingTop: theme.spacing(3)
+    minHeight: '100%'
   },
-  productCard: {
-    height: '100%'
+  container: {
+    height: 'calc(100vh - 70px)',
+    overflow: 'auto'
   }
 }));
 
@@ -44,7 +43,43 @@ const ProductDetail = () => {
 
   return (
     <Page className={classes.root} title="Product">
-      <Container maxWidth={false}>
+      <div style={{ backgroundColor: 'rgb(239, 239, 239)' }}>
+        <div style={{ width: 1270, margin: 'auto' }}>
+          <div class="breadcrumb">
+            <a class="breadcrumb-item" data-view-id="breadcrumb_item" data-view-index="0" href="/">
+              Trang chủ
+            </a>
+            <a
+              class="breadcrumb-item"
+              data-view-id="breadcrumb_item"
+              data-view-index="1"
+              href="/phu-kien-thoi-trang/c27498"
+            >
+              Phụ kiện thời trang
+            </a>
+            <a
+              class="breadcrumb-item"
+              data-view-id="breadcrumb_item"
+              data-view-index="2"
+              href="/phu-kien-thoi-trang-nam/c27550"
+            >
+              Phụ kiện thời trang nam
+            </a>
+            <a
+              class="breadcrumb-item"
+              data-view-id="breadcrumb_item"
+              data-view-index="3"
+              href="/that-lung-day-nit-nam/c968"
+            >
+              Thắt lưng, dây nịt nam
+            </a>
+            <a href="#" class="breadcrumb-item" data-view-id="breadcrumb_item" data-view-index="4">
+              <span>Thắt Lưng Nam Dây Da Phong Cách Hàn Quốc Khóa Tự Động - TOPEE OTOL5 (Đen)</span>
+            </a>
+          </div>
+        </div>
+      </div>
+      <Container maxWidth={true} className={classes.container}>
         <ProductCard product={product} />
       </Container>
     </Page>
