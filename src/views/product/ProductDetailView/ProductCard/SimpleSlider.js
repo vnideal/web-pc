@@ -5,7 +5,7 @@ import { CardMedia, makeStyles } from '@material-ui/core';
 // Import css files
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import './index.css';
+import './product-slider.css';
 
 const useStyles = makeStyles((theme) => ({
   media: {
@@ -27,34 +27,33 @@ export default function SimpleSlider(prop) {
     autoplay: false
   };
   return (
-    <div className="slider-container">
+    <div className="product-slider-container">
       <Slider {...settings}>
-        <div className="image">
+        <div className="product-slider-image">
           <CardMedia className={classes.media} image={product.image} title={product.name} />
         </div>
-        <div className="image">
+        <div className="product-slider-image">
           <CardMedia className={classes.media} image={product.image} title={product.name} />
         </div>
-        <div className="image">
+        <div className="product-slider-image">
           <CardMedia className={classes.media} image={product.image} title={product.name} />
         </div>
-        <div className="image">
+        <div className="product-slider-image">
           <CardMedia className={classes.media} image={product.image} title={product.name} />
         </div>
-        <div className="image">
+        <div className="product-slider-image">
           <CardMedia className={classes.media} image={product.image} title={product.name} />
         </div>
-        <div className="image">
+        <div className="product-slider-image">
           <CardMedia className={classes.media} image={product.image} title={product.name} />
         </div>
-        <div className="image">
-          
+        <div className="product-slider-image">
           <CardMedia className={classes.media} image={product.image} title={product.name} />
         </div>
-        <div className="image">
+        <div className="product-slider-image">
           <CardMedia className={classes.media} image={product.image} title={product.name} />
         </div>
-        <div className="image">
+        <div className="product-slider-image">
           <CardMedia className={classes.media} image={product.image} title={product.name} />
         </div>
       </Slider>

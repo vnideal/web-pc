@@ -212,34 +212,3 @@
   padding-right: 15px;
   background: #f36;
 }
-
-/* Detail infomation */
-#detail_infomation .content table {
-  max-width: 100%;
-  border-collapse: collapse;
-  border-spacing: 0px;
-  width: 100% !important;
-}
-
-#detail_infomation .content table tr {
-  font-size: 13px;
-  border-bottom: 0px;
-}
-
-#detail_infomation .content table tr td:first-child {
-  width: 220px;
-  vertical-align: top;
-  color: rgb(79, 79, 79);
-  font-size: 13px;
-  font-weight: 500;
-  background: rgb(239, 239, 239);
-}
-
-#detail_infomation .content table tr td:last-child {
-  flex: 1 1 0%;
-  border-right: 0px;
-}
-
-#detail_infomation .content table tr td {
-  padding: 10px 15px;
-}

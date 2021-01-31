@@ -1,0 +1,19 @@
+.product-card-content .product-comments .product-star,
+.product-card-content .product-comments .comments-advices {
+  width: auto;
+  display: inline-block;
+}
+.product-card-content .product-comments .product-star {
+  color: #ff9900;
+}
+.product-card-content .product-comments .product-star svg {
+  font-size: 0.8em;
+}
+.product-card-content .product-comments .comments-advices a {
+  border-right: 1px solid #eaeaea;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+.product-card-content .product-comments .comments-advices a:last-child {
+  border-right: none;
+}

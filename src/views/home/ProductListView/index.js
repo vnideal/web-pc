@@ -4,7 +4,7 @@ import qs from 'qs';
 import { Box, Container, Grid, makeStyles } from '@material-ui/core';
 import Page from 'src/components/Page';
 import ProductService from 'src/services/product/ProductService';
-import ProductCardList from 'src/components/Default/Product/ProductCardList';
+import ProductCardList from 'src/components/Default/Product/ProductList';
 
 const useStyles = makeStyles((theme) => ({
   root: {

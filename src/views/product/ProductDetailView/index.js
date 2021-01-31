@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Box, Container, Grid, makeStyles } from '@material-ui/core';
 import Page from 'src/components/Page';
+import Breadcrumb from 'src/components/Default/Breadcrumb';
 import ProductService from 'src/services/product/ProductService';
 import Loading from 'src/components/Loading';
 import ProductCard from './ProductCard';
+import ProductInfomation from './ProductInfomation';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -13,7 +15,21 @@ const useStyles = makeStyles((theme) => ({
   },
   container: {
     height: 'calc(100vh - 70px)',
-    overflow: 'auto'
+    overflow: 'auto',
+    WebkitOverflowScrolling: 'touch'
+  },
+  wrapper: {
+    flexGrow: 1,
+    maxWidth: 1270,
+    margin: 'auto'
+  },
+  paper: {
+    padding: theme.spacing(2)
+  },
+  title: {
+    paddingTop: 16,
+    paddingBottom: 16,
+    marginBottom: 0
   }
 }));
 
@@ -43,44 +59,12 @@ const ProductDetail = () => {
 
   return (
     <Page className={classes.root} title="Product">
-      <div style={{ backgroundColor: 'rgb(239, 239, 239)' }}>
-        <div style={{ width: 1270, margin: 'auto' }}>
-          <div class="breadcrumb">
-            <a class="breadcrumb-item" data-view-id="breadcrumb_item" data-view-index="0" href="/">
-              Trang chủ
-            </a>
-            <a
-              class="breadcrumb-item"
-              data-view-id="breadcrumb_item"
-              data-view-index="1"
-              href="/phu-kien-thoi-trang/c27498"
-            >
-              Phụ kiện thời trang
-            </a>
-            <a
-              class="breadcrumb-item"
-              data-view-id="breadcrumb_item"
-              data-view-index="2"
-              href="/phu-kien-thoi-trang-nam/c27550"
-            >
-              Phụ kiện thời trang nam
-            </a>
-            <a
-              class="breadcrumb-item"
-              data-view-id="breadcrumb_item"
-              data-view-index="3"
-              href="/that-lung-day-nit-nam/c968"
-            >
-              Thắt lưng, dây nịt nam
-            </a>
-            <a href="#" class="breadcrumb-item" data-view-id="breadcrumb_item" data-view-index="4">
-              <span>Thắt Lưng Nam Dây Da Phong Cách Hàn Quốc Khóa Tự Động - TOPEE OTOL5 (Đen)</span>
-            </a>
-          </div>
-        </div>
-      </div>
+      <Breadcrumb />
       <Container maxWidth={true} className={classes.container}>
-        <ProductCard product={product} />
+        <div className={classes.wrapper}>
+          <ProductCard product={product} />
+          <ProductInfomation classes={classes} />
+        </div>
       </Container>
     </Page>
   );
