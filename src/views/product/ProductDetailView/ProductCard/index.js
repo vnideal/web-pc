@@ -1,15 +1,21 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import * as FontIcons from '@fortawesome/fontawesome-free-solid';
 import * as Icons from '@fortawesome/free-solid-svg-icons';
 import formatPrice from 'src/utils/formatPrice';
 import SimpleSlider from './SimpleSlider';
+import UserAvatar from 'src/components/UserAvatar';
+import { Box, Typography, makeStyles } from '@material-ui/core';
+
 import './index.css';
+
+const userInfo = {
+  avatar: 'https://storage.googleapis.com/cdn.vnideal.com/users/images/iuWmNGGNVufdwSwN1G76P5wDBx4ZTjEBIctVJWod.jpg',
+  name: 'Nhan Nguyen'
+};
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -123,9 +129,15 @@ const ProductCard = ({ product }) => {
           </Grid>
         </Grid>
         <Grid item md={3}>
-          <Typography gutterBottom variant="h4">
-            THÔNG TIN NGƯỜI ĐĂNG
-          </Typography>
+          <Box alignItems="center" display="flex" flexDirection="column">
+            <Typography gutterBottom variant="h4">
+              THÔNG TIN NGƯỜI ĐĂNG
+            </Typography>
+            <UserAvatar className={classes.avatar} user={userInfo} to="" />
+            <Typography color="textPrimary" gutterBottom variant="h3">
+              {userInfo.name}
+            </Typography>
+          </Box>
         </Grid>
       </Grid>
     </Paper>
