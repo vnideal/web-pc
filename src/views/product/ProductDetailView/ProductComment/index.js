@@ -1,14 +1,28 @@
 import React from 'react';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
+import { Paper, Typography, makeStyles } from '@material-ui/core';
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    maxWidth: '100%'
+  },
+  paper: {
+    padding: theme.spacing(2)
+  },
+  title: {
+    paddingTop: 16,
+    paddingBottom: 16,
+    marginBottom: 0
+  }
+}));
 
 const ProductComment = (props) => {
+  const classes = useStyles();
   return (
-    <>
+    <div className={classes.root}>
       <Typography gutterBottom variant="h4" className={classes.title}>
         KHÁCH HÀNG NHẬN XÉT
       </Typography>
-    </>
+    </div>
   );
 };
 

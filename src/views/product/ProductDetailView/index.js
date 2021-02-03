@@ -7,6 +7,7 @@ import ProductService from 'src/services/product/ProductService';
 import Loading from 'src/components/Loading';
 import ProductCard from './ProductCard';
 import ProductInfomation from './ProductInfomation';
+import ProductComment from './ProductComment';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -63,7 +64,8 @@ const ProductDetail = () => {
       <Container maxWidth={true} className={classes.container}>
         <div className={classes.wrapper}>
           <ProductCard product={product} />
-          <ProductInfomation classes={classes} />
+          <ProductInfomation />
+          <ProductComment />
         </div>
       </Container>
     </Page>
