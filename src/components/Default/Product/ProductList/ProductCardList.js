@@ -3,7 +3,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import { makeStyles } from '@material-ui/styles';
 import PropTypes from 'prop-types';
 import { Box, Grid } from '@material-ui/core';
-import ProductCard from 'src/components/Default/Product/ProductCard';
+import ProductCard from './ProductCard';
 import Loading from 'src/components/Loading';
 import InfiniteScroll from 'react-infinite-scroller';
 

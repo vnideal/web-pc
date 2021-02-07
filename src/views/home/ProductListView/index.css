@@ -1,0 +1,16 @@
+.product-comments .product-star,
+.product-comments .comments-advices {
+  width: auto;
+  display: inline-block;
+}
+.product-comments .product-star {
+  color: #ff9900;
+}
+.product-comments .comments-advices a {
+  border-right: 1px solid #eaeaea;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+.product-comments .comments-advices a:last-child {
+  border-right: none;
+}

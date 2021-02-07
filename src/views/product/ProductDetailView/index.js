@@ -2,19 +2,35 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Box, Container, Grid, makeStyles } from '@material-ui/core';
 import Page from 'src/components/Page';
+import Breadcrumb from 'src/components/Default/Breadcrumb';
 import ProductService from 'src/services/product/ProductService';
 import Loading from 'src/components/Loading';
 import ProductCard from './ProductCard';
+import ProductInfomation from './ProductInfomation';
+import ProductComment from './ProductComment';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: theme.palette.background.dark,
-    minHeight: '100%',
-    paddingBottom: theme.spacing(3),
-    paddingTop: theme.spacing(3)
+    minHeight: '100%'
   },
-  productCard: {
-    height: '100%'
+  container: {
+    height: 'calc(100vh - 70px)',
+    overflow: 'auto',
+    WebkitOverflowScrolling: 'touch'
+  },
+  wrapper: {
+    flexGrow: 1,
+    maxWidth: 1270,
+    margin: 'auto'
+  },
+  paper: {
+    padding: theme.spacing(2)
+  },
+  title: {
+    paddingTop: 16,
+    paddingBottom: 16,
+    marginBottom: 0
   }
 }));
 
@@ -44,8 +60,13 @@ const ProductDetail = () => {
 
   return (
     <Page className={classes.root} title="Product">
-      <Container maxWidth={false}>
-        <ProductCard product={product} />
+      <Breadcrumb />
+      <Container maxWidth={true} className={classes.container}>
+        <div className={classes.wrapper}>
+          <ProductCard product={product} />
+          <ProductInfomation />
+          <ProductComment />
+        </div>
       </Container>
     </Page>
   );

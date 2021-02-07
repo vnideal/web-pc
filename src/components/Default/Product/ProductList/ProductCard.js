@@ -16,6 +16,10 @@ import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import AccessAlarmIcon from '@material-ui/icons/AccessAlarm';
 import getFromNow from 'src/utils/getFromNow';
 import UserAvatar from 'src/components/UserAvatar';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import * as FontIcons from '@fortawesome/fontawesome-free-solid';
+import * as Icons from '@fortawesome/free-solid-svg-icons';
+import './index.css'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -70,10 +74,22 @@ const ProductCard = ({ className, product, ...rest }) => {
       />
       <CardMedia className={classes.media} image={product.image} title={product.name} />
 
-      <CardContent>
+      <CardContent className="product-card-content">
         <Typography align="left" color="textPrimary" variant="body1">
           {product.name}
         </Typography>
+        <div class="product-comments">
+          <div class="product-star">
+            <FontAwesomeIcon icon={FontIcons.faStar} size="0.5x" />
+            <FontAwesomeIcon icon={FontIcons.faStar} size="0.5x" />
+            <FontAwesomeIcon icon={FontIcons.faStar} size="0.5x" />
+            <FontAwesomeIcon icon={FontIcons.faStar} size="0.5x" />
+            <FontAwesomeIcon icon={Icons.faStarHalfAlt} size="0.5x" />
+          </div>
+          <div class="comments-advices">
+            <a href="#">(3 đánh giá)</a>
+          </div>
+        </div>
       </CardContent>
       <Box flexGrow={1} />
       <Divider />
